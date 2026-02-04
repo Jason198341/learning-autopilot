@@ -71,6 +71,17 @@ const categories = [
     icon: '🇮🇳',
     color: 'from-orange-500 to-red-600',
   },
+  {
+    id: 'iit-collaboration',
+    title: 'IIT Bombay 협업 기술',
+    subtitle: 'IIT Technology Partnership',
+    description: '천연섬유+HDPE 복합소재, 3D 프린팅 친환경 소재, CFRP 굽힘 강도 향상, HL+VARTM 하이브리드 제조 - 4대 특허 기술',
+    progress: 40,
+    totalSteps: 7,
+    completedSteps: 3,
+    icon: '🤝',
+    color: 'from-indigo-500 to-purple-600',
+  },
 ];
 
 // Glossary terms (용어 사전 - 별도 섹션)
@@ -147,7 +158,7 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '6', icon: '📁' },
+            { label: '학습 카테고리', value: '7', icon: '📁' },
             { label: '용어 사전', value: '3', icon: '📚' },
             { label: '지식 문서', value: '50', icon: '📄' },
             { label: '평균 숙련도', value: '61%', icon: '📈' },
