@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-type TabType = 'overview' | 'patents' | 'materials' | 'swot' | 'cost' | 'glossary';
+type TabType = 'overview' | 'basics' | 'patents' | 'materials' | 'swot' | 'cost' | 'glossary';
 
 interface Patent {
   id: string;
@@ -164,6 +164,7 @@ export default function IITCollaborationPage() {
 
   const tabs: { id: TabType; label: string; icon: string }[] = [
     { id: 'overview', label: '개요', icon: '🎯' },
+    { id: 'basics', label: '기초과학', icon: '⚛️' },
     { id: 'patents', label: '4대 특허', icon: '📜' },
     { id: 'materials', label: '소재 비교', icon: '⚗️' },
     { id: 'swot', label: 'SWOT 분석', icon: '📊' },
@@ -358,6 +359,337 @@ export default function IITCollaborationPage() {
                     기지재와 강화재의 접촉면.
                     결합력이 복합재 성능의 핵심.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Basics Tab - 기초과학 */}
+        {activeTab === 'basics' && (
+          <div className="space-y-8">
+            {/* 자동차 내장재란? */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-6">1.1 자동차 내장재란?</h2>
+              <p className="text-slate-300 mb-6">
+                자동차 <span className="text-indigo-400 font-semibold">내장재(Interior Materials)</span>는 차량 내부에 사용되는 모든 재료를 말합니다.
+              </p>
+              <div className="bg-slate-900/50 rounded-xl p-6 font-mono text-sm">
+                <div className="text-indigo-400 mb-4 text-center font-bold">자동차 내장재 종류</div>
+                <div className="space-y-2 text-slate-300">
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 대시보드 (Dashboard) - 계기판 주변 플라스틱</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 도어트림 (Door Trim) - 문 안쪽 패널</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 센터콘솔 (Center Console) - 기어박스 주변</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 시트 (Seat) - 좌석 프레임 및 커버</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 헤드라이너 (Headliner) - 천장 내장재</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 필러트림 (Pillar Trim) - 기둥 부분 커버</div>
+                  <div className="flex items-center gap-3"><span className="text-cyan-400">•</span> 카페트 (Carpet) - 바닥재</div>
+                </div>
+              </div>
+            </div>
+
+            {/* 왜 새로운 내장재가 필요한가? */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-6">1.2 왜 새로운 내장재가 필요한가?</h2>
+              <h3 className="text-lg font-semibold text-indigo-400 mb-4">현재 자동차 산업의 3가지 도전 과제</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[700px]">
+                  <thead>
+                    <tr className="border-b border-slate-700">
+                      <th className="text-left py-3 px-4 text-slate-400">도전 과제</th>
+                      <th className="text-left py-3 px-4 text-slate-400">설명</th>
+                      <th className="text-left py-3 px-4 text-slate-400">IIT 기술의 해결책</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-orange-400 font-medium">환경 규제 강화</td>
+                      <td className="py-3 px-4 text-slate-300">플라스틱 사용 제한, 재활용 의무화</td>
+                      <td className="py-3 px-4 text-green-400">천연섬유 복합재 (바이오 기반)</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-orange-400 font-medium">경량화 요구</td>
+                      <td className="py-3 px-4 text-slate-300">전기차 시대, 배터리 무게 보상 필요</td>
+                      <td className="py-3 px-4 text-green-400">가벼우면서 강한 복합재</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 text-orange-400 font-medium">비용 절감</td>
+                      <td className="py-3 px-4 text-slate-300">원자재 가격 상승 대응</td>
+                      <td className="py-3 px-4 text-green-400">저렴한 천연섬유 활용</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* 원자와 분자 */}
+            <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl p-8 border border-indigo-500/20">
+              <h2 className="text-2xl font-bold text-white mb-6">2.1 원자와 분자 - 모든 물질의 시작점</h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-slate-800/50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-indigo-400 mb-4">원자(Atom)란?</h3>
+                  <p className="text-slate-300 mb-4">원자는 물질을 구성하는 가장 작은 단위입니다.</p>
+                  <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-xs">
+                    <pre className="text-center text-slate-300">
+{`        ● ● ●      ← 전자(Electron): 음(-)전하
+       ●     ●        핵 주위를 빠르게 돌고 있음
+      ●   ◉   ●
+       ●     ●     ◉ = 원자핵(Nucleus)
+        ● ● ●          • 양성자(+): 양전하
+                       • 중성자(0): 전하 없음`}
+                    </pre>
+                  </div>
+                  <div className="mt-4 text-sm text-slate-400">
+                    <p className="font-semibold text-cyan-400 mb-2">비유로 이해하기:</p>
+                    <ul className="space-y-1">
+                      <li>• 원자핵 = 태양</li>
+                      <li>• 전자 = 태양 주위를 도는 행성들</li>
+                      <li>• 원자 크기가 축구장이면, 원자핵은 축구공!</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-slate-800/50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-purple-400 mb-4">분자(Molecule)란?</h3>
+                  <p className="text-slate-300 mb-4">분자는 원자들이 결합해서 만들어진 것입니다.</p>
+                  <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-sm">
+                    <div className="text-center text-slate-400 mb-2">물 분자 (H₂O)의 예:</div>
+                    <pre className="text-center text-slate-300">
+{`    H (수소 원자)
+     \\
+      O (산소 원자)
+     /
+    H (수소 원자)`}
+                    </pre>
+                  </div>
+                  <div className="mt-4 p-3 bg-purple-500/10 rounded-lg">
+                    <p className="text-purple-300 text-sm">→ 수소 2개 + 산소 1개가 결합 = 물 분자 1개</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 고분자 */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-6">2.2 고분자(Polymer) - 플라스틱의 정체</h2>
+
+              <p className="text-slate-300 mb-6">
+                <span className="text-indigo-400 font-semibold">고분자(高分子, Polymer)</span>는 &quot;높을 고(高)&quot; + &quot;분자(分子)&quot;로, 아주 큰 분자라는 뜻입니다.
+              </p>
+
+              <div className="bg-slate-900/50 rounded-xl p-6 font-mono text-sm mb-6">
+                <div className="text-center text-indigo-400 mb-4 font-bold">고분자의 구조</div>
+                <div className="space-y-4 text-slate-300">
+                  <div>
+                    <span className="text-cyan-400">단량체(Monomer)</span> = 작은 블록 하나
+                    <div className="mt-1 ml-4">■</div>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400">고분자(Polymer)</span> = 블록이 수천~수만 개 연결된 것
+                    <div className="mt-1 ml-4">■-■-■-■-■-■-■-■-■-■-■-■-■-■-■-■...</div>
+                  </div>
+                  <div className="mt-4 p-3 bg-indigo-500/10 rounded-lg">
+                    <p className="text-indigo-300">🧱 레고 블록을 상상해보세요!</p>
+                    <p className="text-slate-400 text-xs mt-1">블록 1개 = 단량체 | 블록 수천 개로 만든 거대한 성 = 고분자</p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-semibold text-indigo-400 mb-4">고분자의 종류</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/20">
+                  <div className="font-semibold text-green-400 mb-2">열가소성 (Thermoplastic)</div>
+                  <p className="text-slate-300 text-sm mb-2">열을 가하면 녹음, 다시 굳힘 가능</p>
+                  <div className="text-xs text-slate-500">예시: PE, PP, HDPE</div>
+                </div>
+                <div className="bg-orange-500/10 rounded-xl p-4 border border-orange-500/20">
+                  <div className="font-semibold text-orange-400 mb-2">열경화성 (Thermoset)</div>
+                  <p className="text-slate-300 text-sm mb-2">한 번 굳으면 다시 녹지 않음</p>
+                  <div className="text-xs text-slate-500">예시: 에폭시, 페놀</div>
+                </div>
+              </div>
+            </div>
+
+            {/* HDPE 완전 해부 */}
+            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-8 border border-cyan-500/20">
+              <h2 className="text-2xl font-bold text-white mb-6">2.3 HDPE (고밀도 폴리에틸렌) 완전 해부</h2>
+
+              <div className="mb-6">
+                <p className="text-lg text-cyan-400 font-semibold">HDPE = High-Density Polyethylene = 고밀도 폴리에틸렌</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-slate-800/50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-red-400 mb-4">LDPE (저밀도)</h3>
+                  <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-xs">
+                    <pre className="text-slate-300">
+{`─────┬─────┬─────┬─────
+     │     │     │    ← 가지(branch)가 많음
+─────┴─────┴─────┴─────`}
+                    </pre>
+                  </div>
+                  <p className="text-slate-400 text-sm mt-3">→ 분자들이 느슨하게 배열 → 밀도가 낮음, 부드러움</p>
+                </div>
+
+                <div className="bg-slate-800/50 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-blue-400 mb-4">HDPE (고밀도)</h3>
+                  <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-xs">
+                    <pre className="text-slate-300">
+{`─────────────────────────  ← 가지가 거의 없음
+─────────────────────────
+─────────────────────────`}
+                    </pre>
+                  </div>
+                  <p className="text-slate-400 text-sm mt-3">→ 분자들이 촘촘하게 배열 → 밀도가 높음, 단단함</p>
+                </div>
+              </div>
+
+              <div className="bg-slate-800/50 rounded-xl p-6 mb-6">
+                <h3 className="text-lg font-semibold text-cyan-400 mb-4">HDPE의 화학식</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-sm text-slate-400 mb-2">에틸렌(Ethylene) 단량체:</div>
+                    <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-xs">
+                      <pre className="text-slate-300 text-center">
+{`H   H
+│   │
+C = C   ← 탄소(C) 2개가 이중결합
+│   │     수소(H) 4개가 붙어있음
+H   H`}
+                      </pre>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-400 mb-2">폴리에틸렌(Polyethylene):</div>
+                    <div className="bg-slate-900/50 rounded-lg p-4 font-mono text-xs">
+                      <pre className="text-slate-300 text-center">
+{`H H   H H   H H   H H
+│ │   │ │   │ │   │ │
+─C─C─ ─C─C─ ─C─C─ ─C─C─ ...
+│ │   │ │   │ │   │ │
+H H   H H   H H   H H`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-cyan-500/10 rounded-lg">
+                  <p className="text-cyan-300 text-sm">→ 에틸렌이 수천~수만 개 연결! 화학식: (C₂H₄)n (n = 10,000~100,000)</p>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-semibold text-cyan-400 mb-4">HDPE의 물리적 특성</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+                  <div className="text-2xl mb-2">⚖️</div>
+                  <div className="text-xs text-slate-400">밀도</div>
+                  <div className="text-cyan-400 font-bold">0.94~0.97</div>
+                  <div className="text-xs text-slate-500">g/cm³</div>
+                  <div className="text-xs text-slate-400 mt-1">물보다 가벼워서 물에 뜸</div>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+                  <div className="text-2xl mb-2">🌡️</div>
+                  <div className="text-xs text-slate-400">녹는점</div>
+                  <div className="text-cyan-400 font-bold">130~137</div>
+                  <div className="text-xs text-slate-500">°C</div>
+                  <div className="text-xs text-slate-400 mt-1">끓는 물에선 안 녹음</div>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+                  <div className="text-2xl mb-2">💪</div>
+                  <div className="text-xs text-slate-400">인장강도</div>
+                  <div className="text-cyan-400 font-bold">20~30</div>
+                  <div className="text-xs text-slate-500">MPa</div>
+                  <div className="text-xs text-slate-400 mt-1">당기는 힘에 버팀</div>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+                  <div className="text-2xl mb-2">🔷</div>
+                  <div className="text-xs text-slate-400">결정화도</div>
+                  <div className="text-cyan-400 font-bold">70~80</div>
+                  <div className="text-xs text-slate-500">%</div>
+                  <div className="text-xs text-slate-400 mt-1">분자 배열 규칙적 = 단단함</div>
+                </div>
+              </div>
+            </div>
+
+            {/* 섬유 종류 */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-6">2.4 섬유(Fiber) 종류</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-green-500/10 rounded-xl p-5 border border-green-500/20">
+                  <div className="text-2xl mb-2">🌿</div>
+                  <h3 className="font-semibold text-green-400 mb-2">천연섬유</h3>
+                  <p className="text-sm text-slate-300 mb-2">황(Saccharum Munja), 대마, 아마</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">강도: 중간</span>
+                    <span className="text-green-400">가격: 저가</span>
+                  </div>
+                </div>
+                <div className="bg-blue-500/10 rounded-xl p-5 border border-blue-500/20">
+                  <div className="text-2xl mb-2">🔷</div>
+                  <h3 className="font-semibold text-blue-400 mb-2">유리섬유</h3>
+                  <p className="text-sm text-slate-300 mb-2">E-glass</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">강도: 높음</span>
+                    <span className="text-blue-400">가격: 중가</span>
+                  </div>
+                </div>
+                <div className="bg-purple-500/10 rounded-xl p-5 border border-purple-500/20">
+                  <div className="text-2xl mb-2">⬛</div>
+                  <h3 className="font-semibold text-purple-400 mb-2">탄소섬유</h3>
+                  <p className="text-sm text-slate-300 mb-2">T700, T800</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">강도: 매우 높음</span>
+                    <span className="text-purple-400">가격: 고가</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 복합재료 */}
+            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl p-8 border border-purple-500/20">
+              <h2 className="text-2xl font-bold text-white mb-6">2.5 복합재료(Composite)</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-slate-300 mb-4">
+                    <span className="text-purple-400 font-semibold">복합재료</span>는 두 가지 이상 재료를 결합하여 새로운 특성을 창출한 재료입니다.
+                  </p>
+                  <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="text-sm font-semibold text-purple-400 mb-3">구성 요소</div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                        <span className="text-slate-300">기지재(Matrix) - 섬유를 감싸는 재료</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
+                        <span className="text-slate-300">강화재(Reinforcement) - 강도 담당</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="text-sm font-semibold text-pink-400 mb-2">예시</div>
+                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                    <span className="text-2xl">🏗️</span>
+                    <div>
+                      <div className="text-white font-medium">콘크리트</div>
+                      <div className="text-xs text-slate-400">시멘트(기지재) + 자갈(강화재)</div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                    <span className="text-2xl">🚗</span>
+                    <div>
+                      <div className="text-white font-medium">CFRP</div>
+                      <div className="text-xs text-slate-400">에폭시(기지재) + 탄소섬유(강화재)</div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                    <span className="text-2xl">🌿</span>
+                    <div>
+                      <div className="text-white font-medium">IIT 천연섬유 복합재</div>
+                      <div className="text-xs text-slate-400">HDPE(기지재) + Saccharum Munja(강화재)</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
