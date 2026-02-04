@@ -462,6 +462,88 @@ const carTemperatures = [
   { location: '바닥', temp: '40~50°C', note: '상대적 저온' },
 ];
 
+// 오염 저항성
+const stainResistance = [
+  { material: 'ABS', water: '양호', oil: '보통', cleaning: '양호' },
+  { material: 'PP', water: '우수', oil: '양호', cleaning: '우수' },
+  { material: 'HDPE', water: '우수', oil: '양호', cleaning: '우수' },
+  { material: '사카룸/HDPE', water: '양호', oil: '양호', cleaning: '양호' },
+  { material: 'CFRP', water: '우수', oil: '양호', cleaning: '보통' },
+];
+
+// 오염원 종류
+const stainSources = [
+  { source: '음료/음식', examples: '커피, 콜라, 과자', issue: '당분이 표면에 달라붙음' },
+  { source: '인체 유래물', examples: '땀, 피지, 핸드크림', issue: '유성 성분이 플라스틱 손상' },
+  { source: '화학물질', examples: '세척제, 광택제, 방향제', issue: '강한 용제는 표면 손상' },
+  { source: '먼지/흙', examples: '미세먼지, 황사', issue: '표면 요철에 축적' },
+];
+
+// 사카룸/HDPE SWOT
+const sacharumSwot = {
+  strengths: ['매우 저렴한 원료', '친환경 (부분 생분해)', '경량화 효과', '기존 설비 활용 가능', '인도 현지 조달 용이'],
+  weaknesses: ['내열성 한계 (100°C)', '흡습성 (수분 흡수)', '냄새 가능성', '물성 편차 가능성', '장기 내구성 미검증'],
+  opportunities: ['환경 규제 강화 추세', 'ESG 경영 확대', '인도 시장 확대', '저가 차종 수요'],
+  threats: ['다른 천연섬유와 경쟁', '원료 공급 불안정성', '품질 관리 어려움', '소비자 인식 부족'],
+};
+
+// CFRP SWOT
+const cfrpSwot = {
+  strengths: ['최고 수준의 강도', '탁월한 경량화 효과', '우수한 내열성', '프리미엄 이미지', '피로 강도 향상 특허'],
+  weaknesses: ['높은 원료 비용', '복잡한 제조 공정', '재활용 어려움', '숙련 기술자 필요', '손상 검출 어려움'],
+  opportunities: ['전기차 경량화 수요', '고급차 시장 성장', '양산 기술 발전', '하이브리드 공법 관심'],
+  threats: ['저가 탄소섬유 경쟁', '대체 경량소재 등장', '탄소섬유 가격 변동', '환경 규제 (재활용)'],
+};
+
+// 양산성 평가
+const massProductionEval = [
+  { criteria: '원료 조달 용이성', sacharum: 5, cfrp: 3 },
+  { criteria: '제조 설비 호환성', sacharum: 4, cfrp: 2 },
+  { criteria: '생산 속도', sacharum: 5, cfrp: 2 },
+  { criteria: '품질 일관성', sacharum: 3, cfrp: 4 },
+  { criteria: '작업자 숙련도 요구', sacharum: 4, cfrp: 2 },
+  { criteria: '후가공 용이성', sacharum: 4, cfrp: 3 },
+];
+
+// 비용 구조 분석
+const costBreakdown = {
+  sacharum: {
+    hdpe: { ratio: '80%', price: 1.2, cost: 0.96 },
+    fiber: { ratio: '20%', price: 0.2, cost: 0.04 },
+    total: 1.00,
+    vs: 'PP-GF30 $1.80~2.20/kg',
+    saving: '45~55%',
+  },
+  cfrp: {
+    carbonFiber: { ratio: '60%', price: 25, cost: 15.0 },
+    epoxy: { ratio: '40%', price: 8, cost: 3.2 },
+    gnp: { price: 0.5, cost: 0.5 },
+    total: 18.70,
+    vs: '알루미늄 $2~3/kg',
+    note: '원료비는 비싸지만 무게 대비 강도 월등',
+  },
+};
+
+// 최종 결론
+const finalConclusions = {
+  sacharum: {
+    recommended: ['도어트림 기재', '트렁크 트림', '시트백 보드', '패키지 트레이'],
+    cautions: ['고온 노출 부위 (대시보드 상단)', '장기 내구성 검증 필요', '흡습 방지 표면 처리 필수'],
+    benefits: ['원료비 45~55% 절감', '무게 10~20% 감소', '친환경 이미지 제고'],
+  },
+  cfrp: {
+    recommended: ['프리미엄/스포츠 차종 내장재', '경량화가 핵심인 전기차 부품', '고급 센터콘솔, 도어 트림'],
+    cautions: ['양산 비용 검토 필수', '재활용 전략 수립', '손상 검출/수리 프로토콜'],
+    benefits: ['무게 30~50% 감소', '프리미엄 감성 향상', '기술 차별화'],
+  },
+  roadmap: [
+    { step: '1단계', desc: '사카룸/HDPE 시작품 제작 및 물성 평가' },
+    { step: '2단계', desc: '실차 장착 테스트 (도어트림 등)' },
+    { step: '3단계', desc: '양산 조건 최적화' },
+    { step: '4단계', desc: '인도 현지 생산 라인 구축' },
+  ],
+};
+
 const swotData = {
   strengths: [
     { title: 'IIT 전문성', desc: '세계적 수준의 재료공학 연구 역량' },
@@ -2008,6 +2090,234 @@ H H   H H   H H   H H`}
               </div>
             </div>
 
+            {/* 심층 분석: 오염 저항성 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">💧</span> 심층 분석: 오염 저항성
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-blue-400 font-semibold mb-3">자동차 내장재 오염원</h4>
+                  <div className="space-y-2">
+                    {stainSources.map((item, i) => (
+                      <div key={i} className="bg-slate-900/50 rounded-lg p-3 text-sm">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-blue-300 font-semibold">{item.source}</span>
+                          <span className="text-xs text-slate-500">{item.examples}</span>
+                        </div>
+                        <p className="text-slate-400 text-xs">{item.issue}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-teal-400 font-semibold mb-3">재료별 오염 저항성</h4>
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-slate-700">
+                        <th className="text-left py-2 text-slate-400">재료</th>
+                        <th className="text-left py-2 text-slate-400">수성</th>
+                        <th className="text-left py-2 text-slate-400">유성</th>
+                        <th className="text-left py-2 text-slate-400">청소</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stainResistance.map((item, i) => (
+                        <tr key={i} className="border-b border-slate-700/30">
+                          <td className="py-2 text-white">{item.material}</td>
+                          <td className={`py-2 ${item.water === '우수' ? 'text-green-400' : 'text-yellow-400'}`}>{item.water}</td>
+                          <td className={`py-2 ${item.oil === '양호' ? 'text-green-400' : 'text-yellow-400'}`}>{item.oil}</td>
+                          <td className={`py-2 ${item.cleaning === '우수' ? 'text-green-400' : item.cleaning === '양호' ? 'text-yellow-400' : 'text-orange-400'}`}>{item.cleaning}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="mt-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                    <p className="text-amber-300 text-xs">
+                      <span className="font-semibold">⚠️ 천연섬유 주의:</span> 섬유 노출 시 수분 흡수 가능, 장기 습한 환경에서 곰팡이 위험. 표면 코팅으로 해결 가능
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 양산성 평가 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🏭</span> 양산성 종합 평가
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-700">
+                      <th className="text-left py-2 text-slate-400">평가 기준</th>
+                      <th className="text-center py-2 text-green-400">사카룸/HDPE</th>
+                      <th className="text-center py-2 text-purple-400">CFRP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {massProductionEval.map((item, i) => (
+                      <tr key={i} className="border-b border-slate-700/30">
+                        <td className="py-2 text-white">{item.criteria}</td>
+                        <td className="py-2 text-center"><span className="text-green-400">{'★'.repeat(item.sacharum)}{'☆'.repeat(5 - item.sacharum)}</span></td>
+                        <td className="py-2 text-center"><span className="text-purple-400">{'★'.repeat(item.cfrp)}{'☆'.repeat(5 - item.cfrp)}</span></td>
+                      </tr>
+                    ))}
+                    <tr className="border-t-2 border-slate-600 font-bold">
+                      <td className="py-3 text-white">종합 점수</td>
+                      <td className="py-3 text-center text-green-400">4.2/5</td>
+                      <td className="py-3 text-center text-purple-400">2.5/5</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <div className="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                  <p className="text-green-300 text-sm"><span className="font-semibold">사카룸/HDPE:</span> 대량 양산에 적합, 기존 설비 활용 가능</p>
+                </div>
+                <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                  <p className="text-purple-300 text-sm"><span className="font-semibold">CFRP:</span> 소량 고부가가치 생산에 적합, 전용 설비 필요</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 구조 분석 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">💵</span> 비용 구조 상세 분석
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* 사카룸/HDPE */}
+                <div className="bg-green-500/5 rounded-xl p-4 border border-green-500/20">
+                  <h4 className="text-green-400 font-semibold mb-3">사카룸/HDPE 복합재 (1kg)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between bg-slate-800/50 rounded-lg px-3 py-2">
+                      <span className="text-slate-300">HDPE 펠릿 (80%)</span>
+                      <span className="text-green-300">$1.2 × 0.8 = <span className="font-bold">$0.96</span></span>
+                    </div>
+                    <div className="flex justify-between bg-slate-800/50 rounded-lg px-3 py-2">
+                      <span className="text-slate-300">사카룸 섬유 (20%)</span>
+                      <span className="text-green-300">$0.2 × 0.2 = <span className="font-bold">$0.04</span></span>
+                    </div>
+                    <div className="flex justify-between bg-green-500/20 rounded-lg px-3 py-2 font-bold">
+                      <span className="text-white">합계</span>
+                      <span className="text-green-400">$1.00/kg</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 p-2 bg-green-500/10 rounded-lg text-center">
+                    <p className="text-green-300 text-sm">vs PP-GF30 $1.80~2.20/kg → <span className="font-bold">45~55% 절감!</span></p>
+                  </div>
+                </div>
+                {/* CFRP */}
+                <div className="bg-purple-500/5 rounded-xl p-4 border border-purple-500/20">
+                  <h4 className="text-purple-400 font-semibold mb-3">CFRP 복합재 (1kg)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between bg-slate-800/50 rounded-lg px-3 py-2">
+                      <span className="text-slate-300">탄소섬유 직물 (60%)</span>
+                      <span className="text-purple-300">$25 × 0.6 = <span className="font-bold">$15.00</span></span>
+                    </div>
+                    <div className="flex justify-between bg-slate-800/50 rounded-lg px-3 py-2">
+                      <span className="text-slate-300">에폭시 수지 (40%)</span>
+                      <span className="text-purple-300">$8 × 0.4 = <span className="font-bold">$3.20</span></span>
+                    </div>
+                    <div className="flex justify-between bg-slate-800/50 rounded-lg px-3 py-2">
+                      <span className="text-slate-300">GNP 나노필러</span>
+                      <span className="text-purple-300">~<span className="font-bold">$0.50</span></span>
+                    </div>
+                    <div className="flex justify-between bg-purple-500/20 rounded-lg px-3 py-2 font-bold">
+                      <span className="text-white">합계</span>
+                      <span className="text-purple-400">~$18.70/kg</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 p-2 bg-purple-500/10 rounded-lg text-center">
+                    <p className="text-purple-300 text-xs">vs 알루미늄 $2~3/kg → 원료비 비싸지만 무게 대비 강도 월등</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 최종 결론 */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-2xl p-6 border border-blue-500/20">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">📋</span> 최종 결론 및 제언
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                {/* 사카룸/HDPE */}
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <h4 className="text-green-400 font-bold mb-3 flex items-center gap-2"><span>🌿</span> 사카룸/HDPE (특허 1, 2)</h4>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <span className="text-green-300 font-semibold">✅ 추천 적용:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {finalConclusions.sacharum.recommended.map((item, i) => (
+                          <span key={i} className="px-2 py-0.5 bg-green-500/20 text-green-300 text-xs rounded">{item}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-yellow-300 font-semibold">⚠️ 주의 필요:</span>
+                      <ul className="text-slate-400 text-xs mt-1 space-y-0.5">
+                        {finalConclusions.sacharum.cautions.map((item, i) => (
+                          <li key={i}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-blue-300 font-semibold">💡 기대 효과:</span>
+                      <ul className="text-slate-300 text-xs mt-1 space-y-0.5">
+                        {finalConclusions.sacharum.benefits.map((item, i) => (
+                          <li key={i}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                {/* CFRP */}
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <h4 className="text-purple-400 font-bold mb-3 flex items-center gap-2"><span>⚡</span> CFRP (특허 3, 4)</h4>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <span className="text-purple-300 font-semibold">✅ 추천 적용:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {finalConclusions.cfrp.recommended.map((item, i) => (
+                          <span key={i} className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-xs rounded">{item}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-yellow-300 font-semibold">⚠️ 주의 필요:</span>
+                      <ul className="text-slate-400 text-xs mt-1 space-y-0.5">
+                        {finalConclusions.cfrp.cautions.map((item, i) => (
+                          <li key={i}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-blue-300 font-semibold">💡 기대 효과:</span>
+                      <ul className="text-slate-300 text-xs mt-1 space-y-0.5">
+                        {finalConclusions.cfrp.benefits.map((item, i) => (
+                          <li key={i}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* 협업 로드맵 */}
+              <div className="bg-slate-800/50 rounded-xl p-4">
+                <h4 className="text-cyan-400 font-bold mb-3">🗺️ 협업 방향 제안</h4>
+                <div className="flex flex-wrap gap-2">
+                  {finalConclusions.roadmap.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 bg-slate-900/50 rounded-lg px-3 py-2">
+                      <span className="text-cyan-400 font-bold text-sm">{item.step}</span>
+                      <span className="text-slate-300 text-xs">{item.desc}</span>
+                      {i < finalConclusions.roadmap.length - 1 && <span className="text-slate-600">→</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* IIT 기술 장점 요약 */}
             <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl p-6 border border-indigo-500/20">
               <h2 className="text-xl font-bold text-white mb-6">🏆 IIT 기술의 종합 우위</h2>
@@ -2032,68 +2342,205 @@ H H   H H   H H   H H`}
 
         {/* SWOT Tab */}
         {activeTab === 'swot' && (
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Strengths */}
-            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl p-6 border border-green-500/20">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">💪</span>
-                <h3 className="text-xl font-bold text-green-400">Strengths (강점)</h3>
+          <div className="space-y-8">
+            {/* 사카룸/HDPE SWOT */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-3xl">🌿</span>
+                <div>
+                  <h2 className="text-2xl font-bold text-green-400">사카룸/HDPE 복합재 SWOT</h2>
+                  <p className="text-sm text-slate-400">천연섬유 기반 친환경 내장재</p>
+                </div>
               </div>
-              <div className="space-y-3">
-                {swotData.strengths.map((item, i) => (
-                  <div key={i} className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="font-medium text-white">{item.title}</div>
-                    <div className="text-sm text-slate-400">{item.desc}</div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Strengths */}
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">💪</span>
+                    <h3 className="font-bold text-green-400">Strengths (강점)</h3>
                   </div>
-                ))}
+                  <div className="space-y-2">
+                    {sacharumSwot.strengths.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Weaknesses */}
+                <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl p-4 border border-orange-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">⚠️</span>
+                    <h3 className="font-bold text-orange-400">Weaknesses (약점)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {sacharumSwot.weaknesses.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Opportunities */}
+                <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-4 border border-blue-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">🚀</span>
+                    <h3 className="font-bold text-blue-400">Opportunities (기회)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {sacharumSwot.opportunities.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Threats */}
+                <div className="bg-gradient-to-br from-red-500/10 to-rose-500/10 rounded-xl p-4 border border-red-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">⚡</span>
+                    <h3 className="font-bold text-red-400">Threats (위협)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {sacharumSwot.threats.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Weaknesses */}
-            <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-2xl p-6 border border-orange-500/20">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">⚠️</span>
-                <h3 className="text-xl font-bold text-orange-400">Weaknesses (약점)</h3>
+            {/* CFRP SWOT */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-3xl">⚫</span>
+                <div>
+                  <h2 className="text-2xl font-bold text-cyan-400">CFRP 복합재 SWOT</h2>
+                  <p className="text-sm text-slate-400">탄소섬유 기반 고성능 경량 소재</p>
+                </div>
               </div>
-              <div className="space-y-3">
-                {swotData.weaknesses.map((item, i) => (
-                  <div key={i} className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="font-medium text-white">{item.title}</div>
-                    <div className="text-sm text-slate-400">{item.desc}</div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Strengths */}
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">💪</span>
+                    <h3 className="font-bold text-green-400">Strengths (강점)</h3>
                   </div>
-                ))}
+                  <div className="space-y-2">
+                    {cfrpSwot.strengths.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Weaknesses */}
+                <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl p-4 border border-orange-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">⚠️</span>
+                    <h3 className="font-bold text-orange-400">Weaknesses (약점)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {cfrpSwot.weaknesses.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Opportunities */}
+                <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-4 border border-blue-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">🚀</span>
+                    <h3 className="font-bold text-blue-400">Opportunities (기회)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {cfrpSwot.opportunities.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Threats */}
+                <div className="bg-gradient-to-br from-red-500/10 to-rose-500/10 rounded-xl p-4 border border-red-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">⚡</span>
+                    <h3 className="font-bold text-red-400">Threats (위협)</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {cfrpSwot.threats.map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-2.5 text-sm text-white">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Opportunities */}
-            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/20">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">🚀</span>
-                <h3 className="text-xl font-bold text-blue-400">Opportunities (기회)</h3>
-              </div>
-              <div className="space-y-3">
-                {swotData.opportunities.map((item, i) => (
-                  <div key={i} className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="font-medium text-white">{item.title}</div>
-                    <div className="text-sm text-slate-400">{item.desc}</div>
-                  </div>
-                ))}
+            {/* SWOT Summary Comparison */}
+            <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl p-6 border border-indigo-500/20">
+              <h2 className="text-xl font-bold text-white mb-4">📊 SWOT 비교 요약</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-600">
+                      <th className="text-left py-3 px-4 text-slate-400 font-medium">구분</th>
+                      <th className="text-left py-3 px-4 text-green-400 font-medium">🌿 사카룸/HDPE</th>
+                      <th className="text-left py-3 px-4 text-cyan-400 font-medium">⚫ CFRP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-green-400 font-medium">핵심 강점</td>
+                      <td className="py-3 px-4 text-slate-300">친환경 + 저비용 + ESG</td>
+                      <td className="py-3 px-4 text-slate-300">초경량 + 고강도 + 고급감</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-orange-400 font-medium">주요 약점</td>
+                      <td className="py-3 px-4 text-slate-300">물성 한계 + 습도 민감</td>
+                      <td className="py-3 px-4 text-slate-300">고비용 + 재활용 어려움</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-blue-400 font-medium">기회 요인</td>
+                      <td className="py-3 px-4 text-slate-300">CAFE Phase 3 + EU 규제</td>
+                      <td className="py-3 px-4 text-slate-300">EV 경량화 + 프리미엄 시장</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 text-red-400 font-medium">위협 요인</td>
+                      <td className="py-3 px-4 text-slate-300">바이오 PP 경쟁</td>
+                      <td className="py-3 px-4 text-slate-300">재활용 규제 + GFRP 경쟁</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            {/* Threats */}
-            <div className="bg-gradient-to-br from-red-500/10 to-rose-500/10 rounded-2xl p-6 border border-red-500/20">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">⚡</span>
-                <h3 className="text-xl font-bold text-red-400">Threats (위협)</h3>
-              </div>
-              <div className="space-y-3">
-                {swotData.threats.map((item, i) => (
-                  <div key={i} className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="font-medium text-white">{item.title}</div>
-                    <div className="text-sm text-slate-400">{item.desc}</div>
-                  </div>
-                ))}
+            {/* Strategic Recommendations */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-4">🎯 전략적 권고사항</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/20">
+                  <h3 className="font-bold text-green-400 mb-3">🌿 사카룸/HDPE 전략</h3>
+                  <ul className="space-y-2 text-sm text-slate-300">
+                    <li>• <span className="text-green-400">공략 시장:</span> 인도/동남아 이머징 마켓</li>
+                    <li>• <span className="text-green-400">타깃 차종:</span> 볼륨 세그먼트 (엔트리~미드)</li>
+                    <li>• <span className="text-green-400">핵심 메시지:</span> "비용 절감 + 친환경"</li>
+                    <li>• <span className="text-green-400">우선 적용:</span> 도어 트림, 필라 트림, 트렁크 트림</li>
+                  </ul>
+                </div>
+                <div className="bg-cyan-500/10 rounded-xl p-4 border border-cyan-500/20">
+                  <h3 className="font-bold text-cyan-400 mb-3">⚫ CFRP 전략</h3>
+                  <ul className="space-y-2 text-sm text-slate-300">
+                    <li>• <span className="text-cyan-400">공략 시장:</span> 프리미엄/퍼포먼스 세그먼트</li>
+                    <li>• <span className="text-cyan-400">타깃 차종:</span> 하이엔드 EV, 스포츠카</li>
+                    <li>• <span className="text-cyan-400">핵심 메시지:</span> "초경량 + 프리미엄"</li>
+                    <li>• <span className="text-cyan-400">우선 적용:</span> IP 캐리어, 시트 프레임, 배터리 케이스</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
