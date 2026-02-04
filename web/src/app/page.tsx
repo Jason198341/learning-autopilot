@@ -38,6 +38,17 @@ const categories = [
     icon: '🪑',
     color: 'from-amber-500 to-orange-600',
   },
+  {
+    id: 'cockpit-design',
+    title: '칵핏 설계 노하우',
+    subtitle: 'Cockpit Design Expertise',
+    description: '인간공학 기반 설계, IP/클러스터/콘솔 설계 원리, H-Point, 세계 전문가급 노하우',
+    progress: 70,
+    totalSteps: 7,
+    completedSteps: 6,
+    icon: '🚗',
+    color: 'from-purple-500 to-pink-600',
+  },
 ];
 
 // Learning steps
@@ -107,10 +118,10 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '3', icon: '📁' },
-            { label: '지식 문서', value: '21', icon: '📄' },
+            { label: '학습 카테고리', value: '4', icon: '📁' },
+            { label: '지식 문서', value: '28', icon: '📄' },
             { label: '평균 숙련도', value: '70%', icon: '📈' },
-            { label: 'Git 커밋', value: '8', icon: '💾' },
+            { label: 'Git 커밋', value: '10', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
