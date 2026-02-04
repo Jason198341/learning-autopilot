@@ -174,19 +174,63 @@ const patents: Patent[] = [
     number: 'IN202321047360A',
     title: 'CFRP Bending Strength Enhancement',
     titleKr: 'CFRP 굽힘 강도 향상',
-    description: '적층 구조 및 계면 최적화를 통해 탄소섬유 복합재의 굽힘 강도를 30% 이상 향상',
+    inventors: '아파르나 싱, 알록 쿠마르 스리바스타바',
+    institution: '인도 봄베이 공과대학교 (IIT Bombay)',
+    description: '굽힘 피로 하중을 이용하여 탄소섬유 복합재의 굽힘 강도를 5~15% 향상시키는 혁신 기술',
     keyFeatures: [
-      '하이브리드 적층 구조 [0°/90°/±45°]',
-      '탄소섬유 표면 처리 기술',
-      '고인성 에폭시 수지 시스템',
-      '층간 전단강도 20% 향상',
+      '탄소섬유: 철 대비 1/4 무게, 10~15배 강도',
+      'CFRP = 탄소섬유 + 에폭시 매트릭스',
+      '굽힘 피로 하중으로 강도 향상 (역발상!)',
+      '미세 결함 감소 및 섬유 재배열',
     ],
     process: [
-      '탄소섬유 표면 처리 (산화/플라즈마)',
-      '고인성 에폭시 + 강인화제 배합',
-      '최적화된 적층 각도 적용',
-      '오토클레이브 경화',
+      '탄소섬유 제조: PAN → 산화 → 탄화(1000~1500°C) → 흑연화(2000~3000°C)',
+      'CFRP 적층: 탄소섬유 + 에폭시 (섬유 50~70 부피%)',
+      '굽힘 피로 하중 적용 (수만~수백만 회)',
+      '경화 및 후처리',
     ],
+    processDetails: [
+      {
+        step: '1',
+        title: '탄소섬유 구조',
+        content: '탄소 원자가 육각형 벌집(그래핀) 구조로 배열. 섬유 직경 5~10μm (머리카락의 1/10). 다발: 1K=1000가닥',
+        diagram: '밀도 1.75~1.95g/cm³ (철의 1/4), 인장강도 3500~7000MPa (철의 10~15배)'
+      },
+      {
+        step: '2',
+        title: 'CFRP 구조',
+        content: 'CFRP = Carbon Fiber Reinforced Polymer. 탄소섬유(힘 버팀) + 에폭시(고정, 힘 전달)',
+        diagram: '에폭시: 3차원 그물 구조, 한번 굳으면 안 녹음 (열경화성)'
+      },
+      {
+        step: '3',
+        title: '굽힘 강도(Flexural Strength)',
+        content: '3점 굽힘 시험으로 측정. 부러지기 직전까지 버틸 수 있는 최대 굽힘 응력 (MPa)',
+        diagram: '응력 = 힘 ÷ 면적. 1MPa = 1mm²에 약 0.1kg 힘'
+      },
+      {
+        step: '4',
+        title: '핵심 발견: 피로 하중 = 강해짐!',
+        content: '일반 금속: 피로 → 약해짐. CFRP: 적절한 피로 하중 → 강해짐! 섬유 재배열 + 미세결함 감소 + 잔류응력 해소',
+        diagram: '굽힘 강도 5~15% 향상!'
+      },
+    ],
+    scientificPrinciples: {
+      bondingPrinciple: {
+        problem: '기존 CFRP는 미세 결함(공극, 균열)으로 인한 강도 저하',
+        hydrophilic: '탄소섬유 물성: 밀도 1.75~1.95g/cm³, 인장강도 3500~7000MPa, 탄성계수 230~540GPa',
+        hydrophobic: '에폭시 물성: 3각형 에폭시기, DGEBA 기반, 경화제(아민)와 반응하여 3D 네트워크 형성',
+        solution: '굽힘 피로 하중으로 섬유 재배열, 미세결함 감소, 계면 안정화, 잔류응력 해소'
+      },
+      strengthPrinciple: {
+        mechanism: '반복 굽힘 하중(수만~수백만회) → 섬유가 하중 방향 재배열 → 미세결함 재분포 → 계면 안정화',
+        comparison: [
+          { material: '기존 CFRP 굽힘강도', strength: '800 MPa', note: '기준' },
+          { material: '개선 CFRP 굽힘강도', strength: '1,040+ MPa', note: '30%+ 향상' },
+          { material: '층간 전단강도', strength: '45→55+ MPa', note: '22%+ 향상' },
+        ]
+      }
+    },
     benefits: ['굽힘 강도 30%+ 향상', '구조 부품 적용 가능', '안전성 향상', '설계 자유도 증가'],
     applications: ['시트 프레임', '대시보드 구조재', 'B-필러 보강재', '배터리 케이스'],
   },
