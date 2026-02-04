@@ -20,6 +20,13 @@ interface Patent {
     bondingPrinciple?: { problem: string; hydrophilic: string; hydrophobic: string; solution: string };
     strengthPrinciple?: { mechanism: string; comparison: { material: string; strength: string; note: string }[] };
   };
+  nanofillerTechnology?: {
+    nanoScale: { definition: string; comparison: string[] };
+    gnpDescription: { fullName: string; structure: string; properties: string[] };
+    coatingEffects: { effect: string; description: string }[];
+    coatingConditions: { condition: string; value: string; explanation: string }[];
+    ultrasonicDispersion: { problem: string; solution: string; mechanism: string[] };
+  };
   benefits: string[];
   applications: string[];
 }
@@ -231,7 +238,48 @@ const patents: Patent[] = [
         ]
       }
     },
-    benefits: ['굽힘 강도 30%+ 향상', '구조 부품 적용 가능', '안전성 향상', '설계 자유도 증가'],
+    nanofillerTechnology: {
+      nanoScale: {
+        definition: '나노(Nano) = 10억분의 1 (10⁻⁹). 1nm = 0.000000001m',
+        comparison: [
+          '원자 1개 크기: 약 0.1~0.3 nm',
+          '나노입자: 1~100 nm',
+          '세포: 약 10 μm (10,000 nm)',
+          '머리카락 두께: 약 80,000 nm (80 μm)',
+        ]
+      },
+      gnpDescription: {
+        fullName: 'GNP = Graphene Nanoplatelet (그래핀 나노플레이트)',
+        structure: '그래핀(탄소 원자 1층 시트)이 수십 층 쌓인 판상 구조. 두께 1~100nm, 넓이 수 μm',
+        properties: [
+          '강도: 강철의 200배',
+          '열전도율: 구리의 10배',
+          '전기전도율: 실리콘의 100배',
+          '두께: 원자 수십 개 두께 (0.34nm × 수십 층)',
+        ]
+      },
+      coatingEffects: [
+        { effect: '표면적 증가', description: 'GNP가 섬유 표면에 나노 돌기 형성 → 에폭시와 접촉 면적 증가 → 접착력(계면 결합력) 향상' },
+        { effect: '균열 진행 방지', description: 'Crack Deflection: GNP가 균열 경로를 막음 → 균열 에너지 분산' },
+        { effect: '열전도성 향상', description: 'GNP의 높은 열전도율 → 경화 시 열 균일 분포 → 품질 향상' },
+      ],
+      coatingConditions: [
+        { condition: 'GNP 농도', value: '0.2~0.5 wt%', explanation: '너무 많으면 뭉침, 너무 적으면 효과 없음' },
+        { condition: '유기 용매', value: '100~500 ml', explanation: '아세톤, 에탄올 등' },
+        { condition: '초음파 처리', value: '3 kHz, 250W, 25~35분', explanation: 'GNP를 골고루 분산시키기 위해' },
+      ],
+      ultrasonicDispersion: {
+        problem: 'GNP는 반데르발스 인력으로 서로 뭉치려는 성질이 강함 (뭉치면 효과 없음)',
+        solution: '초음파로 캐비테이션(기포 붕괴) 유발 → 충격파가 GNP 뭉침을 분리',
+        mechanism: [
+          '1. 초음파 → 용매에서 미세 기포 생성',
+          '2. 기포가 급격히 붕괴 (캐비테이션)',
+          '3. 붕괴 시 강력한 충격파 발생 (국소 5,000K, 500기압)',
+          '4. 충격파가 GNP 뭉침을 분리 → 균일 분산',
+        ]
+      }
+    },
+    benefits: ['굽힘 강도 30%+ 향상', '구조 부품 적용 가능', '안전성 향상', '설계 자유도 증가', 'GNP 코팅으로 계면 결합력 35% 향상'],
     applications: ['시트 프레임', '대시보드 구조재', 'B-필러 보강재', '배터리 케이스'],
   },
   {
@@ -1203,6 +1251,185 @@ H H   H H   H H   H H`}
                             </div>
                           </div>
                         )}
+                      </div>
+                    )}
+
+                    {/* Nanofiller Technology Section */}
+                    {patent.nanofillerTechnology && (
+                      <div className="space-y-6 mt-6">
+                        <h4 className="text-lg font-semibold text-purple-400 flex items-center gap-2">
+                          <span className="text-2xl">🔬</span> 나노필러(Nanofiller) 코팅 기술
+                        </h4>
+
+                        {/* Nano Scale */}
+                        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20">
+                          <h5 className="font-semibold text-purple-400 mb-4">🔍 나노(Nano) 스케일이란?</h5>
+                          <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
+                            <p className="text-slate-300 text-sm mb-3">{patent.nanofillerTechnology.nanoScale.definition}</p>
+                            <div className="text-purple-400 font-semibold text-sm mb-2">크기 비교:</div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                              {patent.nanofillerTechnology.nanoScale.comparison.map((item, i) => (
+                                <div key={i} className="bg-slate-800/50 rounded-lg p-3 text-center">
+                                  <p className="text-slate-300 text-xs">{item}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs">
+                            <pre className="text-slate-300 text-center whitespace-pre-wrap">
+{`원자 < 나노입자 < 세포 < 머리카락 < 모래알
+0.1nm   1-100nm  10μm   80μm      1mm`}
+                            </pre>
+                          </div>
+                        </div>
+
+                        {/* GNP Description */}
+                        <div className="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 rounded-xl p-6 border border-indigo-500/20">
+                          <h5 className="font-semibold text-indigo-400 mb-4">⬡ 그래핀 나노플레이트 (GNP)</h5>
+                          <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
+                            <p className="text-indigo-300 font-semibold text-sm mb-2">{patent.nanofillerTechnology.gnpDescription.fullName}</p>
+                            <p className="text-slate-300 text-sm mb-4">{patent.nanofillerTechnology.gnpDescription.structure}</p>
+                            <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs mb-4">
+                              <pre className="text-slate-300 text-center">
+{`  ◯─◯─◯─◯─◯─◯
+ / \\ / \\ / \\ / \\
+◯   ◯   ◯   ◯   ◯  ← 두께: 원자 1개 (0.34 nm)
+ \\ / \\ / \\ / \\ /
+  ◯─◯─◯─◯─◯─◯`}
+                              </pre>
+                            </div>
+                            <div className="text-indigo-400 font-semibold text-sm mb-2">GNP 특성:</div>
+                            <div className="grid grid-cols-2 gap-2">
+                              {patent.nanofillerTechnology.gnpDescription.properties.map((prop, i) => (
+                                <div key={i} className="flex items-center gap-2 text-sm">
+                                  <span className="text-indigo-400">•</span>
+                                  <span className="text-slate-300">{prop}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Coating Effects */}
+                        <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl p-6 border border-emerald-500/20">
+                          <h5 className="font-semibold text-emerald-400 mb-4">✨ GNP 코팅 효과</h5>
+                          <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs mb-4">
+                            <pre className="text-slate-300 text-center">
+{`코팅 전               코팅 후
+═══════════          ╔═══════════╗
+ 탄소섬유             ║ GNP 코팅  ║
+(매끈한 표면)         ╚═══════════╝
+                       탄소섬유
+                     (거친 표면)`}
+                            </pre>
+                          </div>
+                          <div className="space-y-3">
+                            {patent.nanofillerTechnology.coatingEffects.map((effect, i) => (
+                              <div key={i} className="bg-slate-900/50 rounded-lg p-4">
+                                <p className="text-emerald-400 font-semibold text-sm mb-1">효과 {i + 1}: {effect.effect}</p>
+                                <p className="text-slate-300 text-sm">{effect.description}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Coating Conditions */}
+                        <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl p-6 border border-amber-500/20">
+                          <h5 className="font-semibold text-amber-400 mb-4">⚗️ 코팅 용액 제조 조건</h5>
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className="border-b border-slate-700">
+                                  <th className="text-left py-2 px-3 text-slate-400">조건</th>
+                                  <th className="text-left py-2 px-3 text-slate-400">값</th>
+                                  <th className="text-left py-2 px-3 text-slate-400">설명</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {patent.nanofillerTechnology.coatingConditions.map((cond, i) => (
+                                  <tr key={i} className="border-b border-slate-700/50">
+                                    <td className="py-2 px-3 text-white">{cond.condition}</td>
+                                    <td className="py-2 px-3 text-amber-300 font-mono">{cond.value}</td>
+                                    <td className="py-2 px-3 text-slate-400">{cond.explanation}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        {/* Ultrasonic Dispersion */}
+                        <div className="bg-gradient-to-r from-sky-500/10 to-cyan-500/10 rounded-xl p-6 border border-sky-500/20">
+                          <h5 className="font-semibold text-sky-400 mb-4">〰️ 초음파 분산의 원리</h5>
+                          <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
+                            <p className="text-red-400 font-semibold text-sm mb-2">⚠️ 문제:</p>
+                            <p className="text-slate-300 text-sm mb-4">{patent.nanofillerTechnology.ultrasonicDispersion.problem}</p>
+                            <p className="text-green-400 font-semibold text-sm mb-2">✓ 해결:</p>
+                            <p className="text-slate-300 text-sm">{patent.nanofillerTechnology.ultrasonicDispersion.solution}</p>
+                          </div>
+                          <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs mb-4">
+                            <pre className="text-slate-300 text-center">
+{`뭉친 상태:         분산된 상태:
+   ▓▓▓▓            ▪  ▪  ▪  ▪
+   ▓▓▓▓     →       ▪  ▪  ▪
+   ▓▓▓▓            ▪  ▪  ▪  ▪
+(효과 없음)       (효과 있음)
+
+〰️〰️〰️〰️〰️〰️  ← 초음파
+○→●→💥        ← 기포 생성 → 성장 → 붕괴
+▪ ▪ ▪ ▪ ▪ ▪  ← 분산된 GNP`}
+                            </pre>
+                          </div>
+                          <div className="text-sky-400 font-semibold text-sm mb-2">작동 메커니즘:</div>
+                          <div className="space-y-2">
+                            {patent.nanofillerTechnology.ultrasonicDispersion.mechanism.map((step, i) => (
+                              <div key={i} className="flex items-start gap-2 text-sm">
+                                <span className="text-sky-400 font-mono">{i + 1}.</span>
+                                <span className="text-slate-300">{step.substring(3)}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 p-3 bg-sky-500/10 rounded-lg">
+                            <p className="text-sky-300 text-xs">💡 캐비테이션: 기포 붕괴 시 국소적으로 5,000K(태양 표면의 약 86%), 500기압 발생</p>
+                          </div>
+                        </div>
+
+                        {/* Performance Improvement */}
+                        <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20">
+                          <h5 className="font-semibold text-green-400 mb-4">📈 GNP 코팅 성능 향상</h5>
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className="border-b border-slate-700">
+                                  <th className="text-left py-2 px-3 text-slate-400">항목</th>
+                                  <th className="text-left py-2 px-3 text-slate-400">기존 CFRP</th>
+                                  <th className="text-left py-2 px-3 text-slate-400">GNP 코팅 CFRP</th>
+                                  <th className="text-left py-2 px-3 text-slate-400">개선율</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b border-slate-700/50">
+                                  <td className="py-2 px-3 text-white">굽힘 강도</td>
+                                  <td className="py-2 px-3 text-slate-400">800 MPa</td>
+                                  <td className="py-2 px-3 text-green-300">1,040+ MPa</td>
+                                  <td className="py-2 px-3 text-green-400 font-semibold">+30%</td>
+                                </tr>
+                                <tr className="border-b border-slate-700/50">
+                                  <td className="py-2 px-3 text-white">층간 전단강도</td>
+                                  <td className="py-2 px-3 text-slate-400">45 MPa</td>
+                                  <td className="py-2 px-3 text-green-300">55+ MPa</td>
+                                  <td className="py-2 px-3 text-green-400 font-semibold">+22%</td>
+                                </tr>
+                                <tr className="border-b border-slate-700/50">
+                                  <td className="py-2 px-3 text-white">계면 결합력</td>
+                                  <td className="py-2 px-3 text-slate-400">기준</td>
+                                  <td className="py-2 px-3 text-green-300">+35%</td>
+                                  <td className="py-2 px-3 text-green-400 font-semibold">향상</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                       </div>
                     )}
 
