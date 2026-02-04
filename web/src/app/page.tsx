@@ -49,6 +49,17 @@ const categories = [
     icon: '🚗',
     color: 'from-purple-500 to-pink-600',
   },
+  {
+    id: 'glossary',
+    title: '자동차 용어 사전',
+    subtitle: 'Automotive Glossary',
+    description: 'IMD, IML, PP, ABS 등 자동차 산업 전문 용어를 7단계 학습법으로 체계적으로 정리',
+    progress: 65,
+    totalSteps: 7,
+    completedSteps: 5,
+    icon: '📚',
+    color: 'from-teal-500 to-cyan-600',
+  },
 ];
 
 // Learning steps
@@ -118,10 +129,10 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '4', icon: '📁' },
-            { label: '지식 문서', value: '28', icon: '📄' },
-            { label: '평균 숙련도', value: '70%', icon: '📈' },
-            { label: 'Git 커밋', value: '10', icon: '💾' },
+            { label: '학습 카테고리', value: '5', icon: '📁' },
+            { label: '지식 문서', value: '35', icon: '📄' },
+            { label: '평균 숙련도', value: '69%', icon: '📈' },
+            { label: 'Git 커밋', value: '12', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
