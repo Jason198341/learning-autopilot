@@ -10,9 +10,12 @@ interface Patent {
   number: string;
   title: string;
   titleKr: string;
+  inventors?: string;
+  institution?: string;
   description: string;
   keyFeatures: string[];
   process: string[];
+  processDetails?: { step: string; title: string; content: string; diagram?: string }[];
   benefits: string[];
   applications: string[];
 }
@@ -23,6 +26,8 @@ const patents: Patent[] = [
     number: 'IN202421056908A',
     title: 'Saccharum Munja + HDPE Composite',
     titleKr: '천연섬유 복합소재',
+    inventors: '아리아 니틴 쿠마르, 싱 아파르나',
+    institution: '인도 봄베이 공과대학교 (IIT Bombay)',
     description: '인도 자생 Saccharum Munja 천연섬유와 HDPE를 혼합한 친환경 자동차 내장재 복합소재',
     keyFeatures: [
       '천연섬유 강화 열가소성 복합재',
@@ -31,10 +36,50 @@ const patents: Patent[] = [
       '기존 PP 대비 10-15% 경량화',
     ],
     process: [
-      '천연섬유 전처리 (알칼리 처리)',
-      '섬유-HDPE 혼합 (압출기)',
-      '펠렛 제조',
-      '사출/압축 성형',
+      '[a] 원료 혼합 - 섬유 + HDPE 펠릿',
+      '[b] 트윈 스크류 압출기 투입',
+      '[c] 150~200°C에서 처리',
+      '[d] 출구 영역으로 운반',
+      '[e] 사출 성형기로 이송',
+      '[f] 최종 성형 (45~55°C, 280~320 bar)',
+    ],
+    processDetails: [
+      {
+        step: 'a',
+        title: '원료 혼합',
+        content: '잘게 자른 사카룸 문자 섬유(3~6mm) + HDPE 펠릿(직경 3~5mm) 혼합',
+        diagram: '펠릿: 작은 알갱이 형태 플라스틱 원료, 운반/보관/투입 편리'
+      },
+      {
+        step: 'b',
+        title: '트윈 스크류 압출기 투입',
+        content: '2개의 스크류가 맞물려 회전하며 섬유와 플라스틱을 균일하게 혼합',
+        diagram: '트윈 스크류 장점: 균일 혼합, 섬유 손상 최소화, 연속 생산'
+      },
+      {
+        step: 'c',
+        title: '150~200°C에서 처리',
+        content: 'HDPE 녹는점(130~137°C) 이상, 섬유 분해온도(220~250°C) 이하의 적정 온도',
+        diagram: '너무 낮으면 코팅 불량, 너무 높으면 섬유 손상'
+      },
+      {
+        step: 'd',
+        title: '출구 영역으로 운반',
+        content: '스크류 회전으로 혼합물 이동, 공기 방울 제거, 균일 온도 유지',
+        diagram: ''
+      },
+      {
+        step: 'e',
+        title: '사출 성형기로 이송',
+        content: '녹은 플라스틱을 금형(틀)에 주입하여 원하는 형상 제작',
+        diagram: '대시보드, 도어트림 등 복잡한 형상 제작 가능'
+      },
+      {
+        step: 'f',
+        title: '최종 성형 조건',
+        content: '금형 온도 45~55°C, 사출 압력 280~320 bar (대기압의 280배)',
+        diagram: '높은 압력: 금형 구석구석 충전, 기포 제거'
+      },
     ],
     benefits: ['탄소 발자국 30% 감소', '원가 5-10% 절감', '경량화로 연비 향상', 'ESG 경영 기여'],
     applications: ['도어 트림 패널', '시트 백 커버', '필러 트림', '트렁크 라이닝'],
@@ -889,6 +934,22 @@ H H   H H   H H   H H`}
                   <div className="px-6 pb-6 space-y-6">
                     <div className="h-px bg-slate-700/50" />
 
+                    {/* Inventor Info */}
+                    {patent.inventors && (
+                      <div className="bg-slate-900/50 rounded-lg p-4">
+                        <div className="grid md:grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <span className="text-slate-500">발명자:</span>
+                            <span className="text-slate-300 ml-2">{patent.inventors}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500">기관:</span>
+                            <span className="text-slate-300 ml-2">{patent.institution}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <p className="text-slate-300">{patent.description}</p>
 
                     <div className="grid md:grid-cols-2 gap-6">
@@ -920,6 +981,29 @@ H H   H H   H H   H H`}
                         </ol>
                       </div>
                     </div>
+
+                    {/* Detailed Process Steps (for patent1) */}
+                    {patent.processDetails && (
+                      <div className="mt-6">
+                        <h4 className="text-sm font-semibold text-amber-400 mb-4">📋 제조 공정 상세 해설</h4>
+                        <div className="space-y-3">
+                          {patent.processDetails.map((detail, i) => (
+                            <div key={i} className="bg-slate-900/50 rounded-lg p-4 border-l-4 border-amber-500/50">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="w-6 h-6 bg-amber-500/20 rounded-full flex items-center justify-center text-xs text-amber-400 font-bold">
+                                  {detail.step}
+                                </span>
+                                <span className="font-semibold text-amber-300">{detail.title}</span>
+                              </div>
+                              <p className="text-slate-300 text-sm mb-2">{detail.content}</p>
+                              {detail.diagram && (
+                                <p className="text-slate-500 text-xs italic">💡 {detail.diagram}</p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Benefits */}
