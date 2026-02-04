@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-// Knowledge categories
+// Knowledge categories (학습 카테고리)
 const categories = [
   {
     id: 'automotive-body',
@@ -46,19 +46,8 @@ const categories = [
     progress: 70,
     totalSteps: 7,
     completedSteps: 6,
-    icon: '🚗',
+    icon: '🎛️',
     color: 'from-purple-500 to-pink-600',
-  },
-  {
-    id: 'glossary',
-    title: '자동차 용어 사전',
-    subtitle: 'Automotive Glossary',
-    description: 'IMD, IML, PP, ABS 등 자동차 산업 전문 용어를 7단계 학습법으로 체계적으로 정리',
-    progress: 65,
-    totalSteps: 7,
-    completedSteps: 5,
-    icon: '📚',
-    color: 'from-teal-500 to-cyan-600',
   },
   {
     id: 'india-interior-regulations',
@@ -71,6 +60,12 @@ const categories = [
     icon: '🇮🇳',
     color: 'from-orange-500 to-red-600',
   },
+];
+
+// Glossary terms (용어 사전 - 별도 섹션)
+const glossaryTerms = [
+  { id: 'imd', term: 'IMD', fullName: 'In-Mold Decoration', category: '표면처리' },
+  { id: 'cafe-phase-3', term: 'CAFE Phase 3', fullName: 'Corporate Average Fuel Efficiency', category: '법규' },
 ];
 
 // Learning steps
@@ -138,12 +133,13 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '6', icon: '📁' },
-            { label: '지식 문서', value: '42', icon: '📄' },
+            { label: '학습 카테고리', value: '5', icon: '📁' },
+            { label: '용어 사전', value: '2', icon: '📚' },
+            { label: '지식 문서', value: '49', icon: '📄' },
             { label: '평균 숙련도', value: '67%', icon: '📈' },
-            { label: 'Git 커밋', value: '14', icon: '💾' },
+            { label: 'Git 커밋', value: '16', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
@@ -154,6 +150,72 @@ export default function Home() {
               <div className="text-sm text-zinc-500">{stat.label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Glossary Section - 용어 사전 (별도 섹션) */}
+      <section className="max-w-7xl mx-auto px-6 pb-16">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="text-3xl">📚</span>
+          <div>
+            <h3 className="text-2xl font-bold">용어 사전</h3>
+            <p className="text-sm text-zinc-500">Automotive Glossary - 전문 용어 심층 학습</p>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-teal-500/10 to-cyan-500/10 border border-teal-500/30 rounded-2xl p-8 mb-8">
+          <div className="flex items-start gap-6 mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-3xl shrink-0">
+              📖
+            </div>
+            <div>
+              <h4 className="text-xl font-bold text-teal-400 mb-2">7단계 학습법으로 용어 완전 정복</h4>
+              <p className="text-zinc-400">
+                자동차 산업의 전문 용어를 단순 암기가 아닌, 핵심 개념 → 멘탈 모델 → 심층 분석 →
+                유추 연결 → 실전 적용 → 탐구 질문 → 숙련도 평가의 7단계로 체계적으로 학습합니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {glossaryTerms.map((term) => (
+              <Link
+                key={term.id}
+                href={`/learn/glossary/${term.id}`}
+                className="group"
+              >
+                <div className="bg-zinc-900/80 border border-zinc-700 rounded-xl p-5 hover:border-teal-500/50 transition-all hover:shadow-lg hover:shadow-teal-500/10">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">
+                      {term.term}
+                    </span>
+                    <span className="px-2 py-1 bg-teal-500/20 text-teal-300 text-xs rounded-full">
+                      {term.category}
+                    </span>
+                  </div>
+                  <p className="text-sm text-zinc-400 mb-3">{term.fullName}</p>
+                  <div className="flex items-center text-teal-400 text-sm font-medium">
+                    <span>학습하기</span>
+                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/learn/glossary"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 rounded-lg transition-all"
+            >
+              <span>전체 용어 사전 보기</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
