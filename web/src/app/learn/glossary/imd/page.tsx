@@ -223,6 +223,149 @@ export default function IMDPage() {
                 ))}
               </div>
 
+            </div>
+
+            {/* Why IMD Emerged - NEW SECTION */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="text-3xl">🚨</span>
+                왜 IMD가 등장했나? (도입 배경)
+              </h2>
+
+              {/* Problem Statement */}
+              <div className="bg-red-500/10 rounded-xl p-6 border border-red-500/30 mb-6">
+                <h3 className="text-xl font-semibold text-red-400 mb-4">
+                  도장의 3가지 문제
+                </h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">🔴</div>
+                    <h4 className="font-semibold text-red-400 mb-2">환경 규제</h4>
+                    <ul className="text-sm text-slate-400 space-y-1">
+                      <li>• 도장 = 유기용제(신나) 사용</li>
+                      <li>• VOC 대량 배출</li>
+                      <li>• EU REACH, EPA 규제 강화</li>
+                      <li className="text-red-400 font-semibold">→ &quot;VOC 줄여라!&quot;</li>
+                    </ul>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">🔴</div>
+                    <h4 className="font-semibold text-red-400 mb-2">원가 부담</h4>
+                    <ul className="text-sm text-slate-400 space-y-1">
+                      <li>• 도장 라인 = 수백억 투자</li>
+                      <li>• 6공정 = 시간/인력 비용</li>
+                      <li>• 불량률 5-10%</li>
+                      <li className="text-red-400 font-semibold">→ &quot;원가 줄여라!&quot;</li>
+                    </ul>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">🔴</div>
+                    <h4 className="font-semibold text-red-400 mb-2">품질 문제</h4>
+                    <ul className="text-sm text-slate-400 space-y-1">
+                      <li>• 도장 박리, 오렌지필</li>
+                      <li>• 먼지 불량</li>
+                      <li>• 색상 편차 (Lot마다 다름)</li>
+                      <li className="text-red-400 font-semibold">→ &quot;품질 올려라!&quot;</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Solution */}
+              <div className="bg-teal-500/10 rounded-xl p-6 border border-teal-500/30 mb-6">
+                <h3 className="text-xl font-semibold text-teal-400 mb-4">
+                  IMD의 해결
+                </h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">🌱</div>
+                    <h4 className="font-semibold text-teal-400 mb-2">VOC 90%↓</h4>
+                    <ul className="text-sm text-slate-300 space-y-1">
+                      <li>• 용제 거의 없음</li>
+                      <li>• 친환경 인증 가능</li>
+                      <li>• 규제 걱정 없음</li>
+                    </ul>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">💵</div>
+                    <h4 className="font-semibold text-teal-400 mb-2">원가 30%↓</h4>
+                    <ul className="text-sm text-slate-300 space-y-1">
+                      <li>• 공정 통합 (6→1)</li>
+                      <li>• 설비 단순</li>
+                      <li>• 인력 절감</li>
+                    </ul>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <div className="text-2xl mb-2">✅</div>
+                    <h4 className="font-semibold text-teal-400 mb-2">불량 2%</h4>
+                    <ul className="text-sm text-slate-300 space-y-1">
+                      <li>• 필름 품질 균일</li>
+                      <li>• 박리 없음</li>
+                      <li>• 색상 일정</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Comparison Table */}
+              <h3 className="text-lg font-semibold text-white mb-4">
+                업계가 IMD를 선택한 이유
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-700">
+                      <th className="py-3 px-4 text-slate-400">압박 요인</th>
+                      <th className="py-3 px-4 text-red-400">도장의 문제</th>
+                      <th className="py-3 px-4 text-teal-400">IMD의 해결</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-slate-300">
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 font-semibold">환경 규제</td>
+                      <td className="py-3 px-4 text-red-400">VOC 배출 → 벌금/제재</td>
+                      <td className="py-3 px-4 text-teal-400">VOC 90% 감소</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 font-semibold">원가 절감</td>
+                      <td className="py-3 px-4 text-red-400">6공정, 고비용</td>
+                      <td className="py-3 px-4 text-teal-400">1공정, 저비용</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 font-semibold">품질 요구</td>
+                      <td className="py-3 px-4 text-red-400">불량률 5-10%</td>
+                      <td className="py-3 px-4 text-teal-400">불량률 1-3%</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 font-semibold">납기 단축</td>
+                      <td className="py-3 px-4 text-red-400">건조 대기 시간</td>
+                      <td className="py-3 px-4 text-teal-400">즉시 출하</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 font-semibold">디자인</td>
+                      <td className="py-3 px-4 text-red-400">색상 변경 = 라인 교체</td>
+                      <td className="py-3 px-4 text-teal-400">필름만 교체</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Conclusion */}
+              <div className="mt-6 bg-gradient-to-r from-teal-500/20 to-cyan-500/20 rounded-xl p-6 text-center">
+                <p className="text-lg text-white">
+                  <span className="text-slate-400">과거:</span> &quot;도장이 더 예쁘니까 도장!&quot;
+                </p>
+                <p className="text-lg text-teal-400 font-semibold mt-2">
+                  <span className="text-slate-400">현재:</span> &quot;환경규제 + 원가 + 품질 = IMD 필수!&quot;
+                </p>
+                <p className="text-lg text-cyan-400 mt-2">
+                  <span className="text-slate-400">미래:</span> &quot;기능 통합 (터치/조명) = IMD 진화!&quot;
+                </p>
+              </div>
+            </div>
+
+            {/* Key Terms moved here */}
+            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
               {/* Why Important */}
               <h3 className="text-xl font-semibold text-white mb-4">
                 왜 중요한가요?
