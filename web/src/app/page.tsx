@@ -39,6 +39,17 @@ const categories = [
     color: 'from-amber-500 to-orange-600',
   },
   {
+    id: 'automotive-parts-bom',
+    title: '자동차 부품 BOM',
+    subtitle: 'Bill of Materials',
+    description: '범퍼, 연료도어, 시트벨트, 필러트림, 카펫, 시트, 글라스, 부틸테이프 등 부품 구조/재질/원가',
+    progress: 30,
+    totalSteps: 7,
+    completedSteps: 2,
+    icon: '📦',
+    color: 'from-violet-500 to-purple-600',
+  },
+  {
     id: 'cockpit-design',
     title: '칵핏 설계 노하우',
     subtitle: 'Cockpit Design Expertise',
@@ -135,11 +146,11 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '5', icon: '📁' },
+            { label: '학습 카테고리', value: '6', icon: '📁' },
             { label: '용어 사전', value: '2', icon: '📚' },
-            { label: '지식 문서', value: '49', icon: '📄' },
-            { label: '평균 숙련도', value: '67%', icon: '📈' },
-            { label: 'Git 커밋', value: '16', icon: '💾' },
+            { label: '지식 문서', value: '50', icon: '📄' },
+            { label: '평균 숙련도', value: '61%', icon: '📈' },
+            { label: 'Git 커밋', value: '18', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
