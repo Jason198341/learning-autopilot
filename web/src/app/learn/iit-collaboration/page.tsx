@@ -16,6 +16,10 @@ interface Patent {
   keyFeatures: string[];
   process: string[];
   processDetails?: { step: string; title: string; content: string; diagram?: string }[];
+  scientificPrinciples?: {
+    bondingPrinciple?: { problem: string; hydrophilic: string; hydrophobic: string; solution: string };
+    strengthPrinciple?: { mechanism: string; comparison: { material: string; strength: string; note: string }[] };
+  };
   benefits: string[];
   applications: string[];
 }
@@ -81,6 +85,22 @@ const patents: Patent[] = [
         diagram: '높은 압력: 금형 구석구석 충전, 기포 제거'
       },
     ],
+    scientificPrinciples: {
+      bondingPrinciple: {
+        problem: '천연섬유(친수성) + HDPE(소수성) = 안 붙음!',
+        hydrophilic: '친수성(Hydrophilic): 물을 좋아함. 셀룰로오스의 -OH기(수산기)가 물과 수소결합 형성',
+        hydrophobic: '소수성(Hydrophobic): 물을 싫어함. HDPE는 C와 H만 있어 극성 없음',
+        solution: '기계적 결합(Mechanical Interlocking): 트윈 스크류의 강한 전단력으로 섬유 표면 활성화, HDPE가 요철 사이로 침투'
+      },
+      strengthPrinciple: {
+        mechanism: '응력 전달: 외부 힘 → 매트릭스(HDPE) → 섬유로 전달 → 섬유가 힘을 버팀',
+        comparison: [
+          { material: 'HDPE', strength: '20~30 MPa', note: '기준' },
+          { material: '사카룸 문자 섬유', strength: '100~200 MPa', note: '5~10배 강함' },
+          { material: '탄소섬유', strength: '3000~7000 MPa', note: '100~300배 강함' },
+        ]
+      }
+    },
     benefits: ['탄소 발자국 30% 감소', '원가 5-10% 절감', '경량화로 연비 향상', 'ESG 경영 기여'],
     applications: ['도어 트림 패널', '시트 백 커버', '필러 트림', '트렁크 라이닝'],
   },
@@ -1002,6 +1022,99 @@ H H   H H   H H   H H`}
                             </div>
                           ))}
                         </div>
+                      </div>
+                    )}
+
+                    {/* Scientific Principles (for patent1) */}
+                    {patent.scientificPrinciples && (
+                      <div className="mt-6 space-y-6">
+                        <h4 className="text-sm font-semibold text-rose-400 mb-4">🔬 과학적 원리 상세 설명</h4>
+
+                        {/* Bonding Principle */}
+                        {patent.scientificPrinciples.bondingPrinciple && (
+                          <div className="bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-xl p-6 border border-rose-500/20">
+                            <h5 className="font-semibold text-rose-400 mb-4">섬유-매트릭스 계면 결합</h5>
+
+                            <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
+                              <p className="text-red-400 font-semibold text-sm mb-3">
+                                ⚠️ 문제점: {patent.scientificPrinciples.bondingPrinciple.problem}
+                              </p>
+
+                              <div className="grid md:grid-cols-2 gap-4 mb-4">
+                                <div className="bg-blue-500/10 rounded-lg p-3 border border-blue-500/20">
+                                  <div className="text-blue-400 font-semibold text-sm mb-1">💧 친수성 (Hydrophilic)</div>
+                                  <p className="text-slate-300 text-xs">{patent.scientificPrinciples.bondingPrinciple.hydrophilic}</p>
+                                </div>
+                                <div className="bg-orange-500/10 rounded-lg p-3 border border-orange-500/20">
+                                  <div className="text-orange-400 font-semibold text-sm mb-1">🛢️ 소수성 (Hydrophobic)</div>
+                                  <p className="text-slate-300 text-xs">{patent.scientificPrinciples.bondingPrinciple.hydrophobic}</p>
+                                </div>
+                              </div>
+
+                              <div className="bg-green-500/10 rounded-lg p-3 border border-green-500/20">
+                                <div className="text-green-400 font-semibold text-sm mb-1">✅ 해결책</div>
+                                <p className="text-slate-300 text-xs">{patent.scientificPrinciples.bondingPrinciple.solution}</p>
+                              </div>
+                            </div>
+
+                            <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs">
+                              <div className="text-center text-slate-400 mb-2">기계적 결합 원리</div>
+                              <pre className="text-slate-300 text-center">
+{`섬유 표면
+╱╲╱╲╱╲╱╲╱╲╱╲     ← 섬유 표면의 요철
+████████████████   ← HDPE가 요철 사이로 침투`}
+                              </pre>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Strength Principle */}
+                        {patent.scientificPrinciples.strengthPrinciple && (
+                          <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 border border-cyan-500/20">
+                            <h5 className="font-semibold text-cyan-400 mb-4">복합재료의 강도 증가 원리</h5>
+
+                            <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
+                              <div className="text-cyan-400 font-semibold text-sm mb-2">📊 응력 전달 메커니즘</div>
+                              <p className="text-slate-300 text-sm">{patent.scientificPrinciples.strengthPrinciple.mechanism}</p>
+                            </div>
+
+                            <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs mb-4">
+                              <pre className="text-slate-300 text-center">
+{`힘 →  ████████████████████████  ← 힘
+      ════════════════════════   (섬유)
+      ████████████████████████
+      ════════════════════════   (섬유)
+      ████████████████████████`}
+                              </pre>
+                            </div>
+
+                            <div className="text-cyan-400 font-semibold text-sm mb-3">재료별 인장강도 비교</div>
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-sm">
+                                <thead>
+                                  <tr className="border-b border-slate-700">
+                                    <th className="text-left py-2 px-3 text-slate-400">재료</th>
+                                    <th className="text-left py-2 px-3 text-slate-400">인장강도</th>
+                                    <th className="text-left py-2 px-3 text-slate-400">비교</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {patent.scientificPrinciples.strengthPrinciple.comparison.map((item, i) => (
+                                    <tr key={i} className="border-b border-slate-700/50">
+                                      <td className="py-2 px-3 text-white">{item.material}</td>
+                                      <td className="py-2 px-3 text-cyan-300">{item.strength}</td>
+                                      <td className="py-2 px-3 text-slate-400">{item.note}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <div className="mt-4 p-3 bg-cyan-500/10 rounded-lg">
+                              <p className="text-cyan-300 text-sm font-semibold">→ 약한 HDPE + 강한 섬유 = 중간 정도의 강한 복합재!</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
 
