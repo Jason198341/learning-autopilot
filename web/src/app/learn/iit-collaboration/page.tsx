@@ -286,25 +286,119 @@ const patents: Patent[] = [
     id: 'patent4',
     number: 'IN202321066950A',
     title: 'HL+VARTM Hybrid Manufacturing',
-    titleKr: 'HL+VARTM 하이브리드 제조',
-    description: 'Hand Layup과 VARTM을 결합한 대형 복잡 형상 CFRP 부품 제조 공정',
+    titleKr: '고급 CFRP 제조 방법 (부분 HL + 즉시 VARTM)',
+    inventors: '자토투 프라빈쿠마르, 아파르나 싱',
+    institution: '인도 봄베이 공과대학교 (IIT Bombay)',
+    description: '기존 Hand Layup과 VARTM의 장점을 결합한 하이브리드 공법. 부분 수지 도포 후 즉시 진공 적용으로 기포 감소 및 작업시간 단축',
     keyFeatures: [
+      '부분 핸드 레이업: 과다 수지 문제 해결',
+      '즉시 VARTM: 굳기 전 진공 적용',
       '섬유 체적 분율 50-60% 달성',
       '기공률 1% 미만',
       '두께 균일성 ±5%',
-      '생산 시간 20% 단축',
     ],
     process: [
-      '몰드 이형 처리 및 겔코트 도포',
-      'Hand Layup (외층 적층)',
-      '진공 백 밀봉',
-      'VARTM 수지 주입 및 경화',
+      '수지 혼합물 준비 (에폭시:경화제 = 100:38)',
+      '진공 챔버에서 탈기 (기포 제거)',
+      '부분 핸드 레이업 (2~12층, 롤러로 살짝만 도포)',
+      '즉시 VARTM (80~150 kPa 진공)',
+      '경화 (상온 24h + 80~120°C에서 1~3h)',
     ],
-    benefits: ['대형 부품 일체 성형', '품질 균일성 확보', '생산성 향상', '설비 투자 최소화'],
-    applications: ['루프 패널', '후드 인너', '트렁크 리드', '대형 트림 부품'],
+    processDetails: [
+      {
+        step: '1',
+        title: '기존 제조 방법: 핸드 레이업 (HL)',
+        content: '손으로 수지를 바르며 섬유를 적층. 장점: 간단, 저렴, 복잡 형상 가능. 단점: 기포 발생, 품질 불균일, 수지 과다',
+        diagram: '섬유 체적 분율 30~40%, 기공률 3~5%'
+      },
+      {
+        step: '2',
+        title: '기존 제조 방법: VARTM',
+        content: '진공으로 수지를 섬유에 주입. 장점: 기포 감소, 균일 품질, 섬유 함량 높음. 단점: 장비 필요, 함침 시간 필요',
+        diagram: '섬유 체적 분율 50~60%, 기공률 <1%'
+      },
+      {
+        step: '3',
+        title: '프리프레그 + 오토클레이브',
+        content: '미리 수지가 묻은 섬유(프리프레그)를 고온/고압 가열(오토클레이브). 최고 품질이지만 매우 비쌈 (항공기, 고급 스포츠카용)',
+        diagram: ''
+      },
+      {
+        step: '4',
+        title: '특허 기술: 부분 HL + 즉시 VARTM',
+        content: '핵심: 완전히 적시지 않고 부분적으로만 수지 도포 → 핸드 레이업 후 바로 진공 적용 (수지 굳기 전) → 기포 제거 + 완전 침투',
+        diagram: '기포 감소(HL 보완) + 작업시간 단축(VARTM 보완)'
+      },
+    ],
+    scientificPrinciples: {
+      bondingPrinciple: {
+        problem: 'HL: 수지 과다 + 기포 / VARTM: 시간 오래 걸림',
+        hydrophilic: '진공 조건: 80~150 kPa, 상온 24시간 경화',
+        hydrophobic: '추가 경화: 80~120°C에서 1~3시간 (완전 경화)',
+        solution: '부분 도포 → 즉시 진공 = 두 공법의 장점만 취함'
+      },
+      strengthPrinciple: {
+        mechanism: '부분 수지 도포로 과다 수지 방지 + 즉시 진공으로 기포 제거 + 섬유 사이 완전 침투',
+        comparison: [
+          { material: 'Hand Layup Only', strength: '섬유 30~40%', note: '기공률 3~5%' },
+          { material: 'VARTM Only', strength: '섬유 50~60%', note: '시간 오래' },
+          { material: 'HL+VARTM 하이브리드', strength: '섬유 50~60%', note: '시간 20% 단축' },
+        ]
+      }
+    },
+    benefits: ['대형 부품 일체 성형', '품질 균일성 확보', '생산성 20% 향상', '설비 투자 최소화', '기포 최소화 (<1%)'],
+    applications: ['루프 패널', '후드 인너', '트렁크 리드', '대형 트림 부품', '배터리 하우징'],
   },
 ];
 
+// 기계적 물성 비교
+const mechanicalProperties = [
+  { material: 'ABS', tensile: '40~50', flexural: '70~80', impact: '15~25', modulus: '2.0~2.5' },
+  { material: 'PP', tensile: '25~35', flexural: '40~50', impact: '3~8', modulus: '1.2~1.5' },
+  { material: 'PP-GF30', tensile: '70~100', flexural: '100~140', impact: '8~12', modulus: '5~7' },
+  { material: 'IIT 사카룸/HDPE', tensile: '35~50', flexural: '50~70', impact: '10~20', modulus: '2~4' },
+  { material: 'IIT CFRP', tensile: '500~800', flexural: '600~1000', impact: '30~50', modulus: '50~80' },
+];
+
+// 열적 특성 비교
+const thermalProperties = [
+  { material: 'ABS', hdt: '85~100', continuous: '70~80', expansion: '7~10' },
+  { material: 'PP', hdt: '55~65', continuous: '80~100', expansion: '10~15' },
+  { material: 'PP-GF30', hdt: '130~150', continuous: '100~120', expansion: '3~5' },
+  { material: 'IIT 사카룸/HDPE', hdt: '80~100', continuous: '70~90', expansion: '8~12' },
+  { material: 'IIT CFRP', hdt: '150~200', continuous: '120~150', expansion: '0.5~2' },
+];
+
+// 내구성 비교 (별점)
+const durabilityProperties = [
+  { material: 'ABS', scratch: 3, heat: 3, chemical: 3, weather: 2, uv: 2 },
+  { material: 'PP', scratch: 2, heat: 4, chemical: 5, weather: 3, uv: 3 },
+  { material: 'PP-GF30', scratch: 4, heat: 4, chemical: 5, weather: 4, uv: 3 },
+  { material: 'IIT 사카룸/HDPE', scratch: 3, heat: 3, chemical: 4, weather: 3, uv: 3 },
+  { material: 'IIT CFRP', scratch: 5, heat: 5, chemical: 4, weather: 5, uv: 4 },
+];
+
+// 환경성 비교
+const environmentalProperties = [
+  { material: 'ABS', source: '석유 100%', recyclable: '가능', biodegradable: '불가', co2: '높음', grade: 2 },
+  { material: 'PP', source: '석유 100%', recyclable: '우수', biodegradable: '불가', co2: '중간', grade: 3 },
+  { material: 'PP-GF', source: '석유+유리', recyclable: '어려움', biodegradable: '불가', co2: '높음', grade: 2 },
+  { material: 'IIT 사카룸/HDPE', source: '석유+천연', recyclable: '가능', biodegradable: '부분', co2: '낮음', grade: 4 },
+  { material: 'IIT CFRP', source: '석유', recyclable: '매우 어려움', biodegradable: '불가', co2: '매우 높음', grade: 2 },
+];
+
+// 현재 자동차 내장재 종류
+const currentMaterials = [
+  { name: 'ABS', fullName: '아크릴로니트릴-부타디엔-스티렌', usage: '대시보드, 도어트림, 콘솔 등 대부분의 플라스틱 부품', note: '가장 널리 사용됨' },
+  { name: 'PP', fullName: '폴리프로필렌', usage: '도어트림, 필러트림, 트렁크 내장재', note: 'ABS보다 저렴, 재활용 용이' },
+  { name: 'PP-GF', fullName: '유리섬유 강화 폴리프로필렌', usage: '도어 캐리어, 인스트루먼트 패널 구조물', note: 'PP보다 강도 높음' },
+  { name: 'PP-TD', fullName: '탈크 충전 폴리프로필렌', usage: '에어컨 덕트, 필러트림 등', note: '치수 안정성 우수' },
+  { name: 'PVC', fullName: '폴리염화비닐', usage: '대시보드 표피, 도어트림 표피', note: '부드러운 촉감, 가죽 느낌' },
+  { name: 'PU', fullName: '폴리우레탄', usage: '대시보드 패드, 스티어링 휠, 시트 쿠션', note: '쿠션감, 충격 흡수' },
+  { name: '천연섬유 복합재', fullName: '황마/아마/대마 + PP', usage: '도어트림 기재, 시트백 등', note: 'BMW, Mercedes 등에서 부분 적용' },
+];
+
+// 기존 materialComparison (하위호환)
 const materialComparison = [
   { material: 'PP (폴리프로필렌)', density: '0.90', tensile: '25-35', usage: '도어 트림, 대시보드', pros: '저가, 가공 용이', cons: '낮은 강도' },
   { material: 'ABS', density: '1.04', tensile: '40-50', usage: '콘솔, 트림', pros: '우수한 충격 강도', cons: '내열성 한계' },
@@ -1474,83 +1568,187 @@ H H   H H   H H   H H`}
         {/* Materials Comparison Tab */}
         {activeTab === 'materials' && (
           <div className="space-y-8">
+            {/* 현재 자동차 내장재 종류 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🚗</span> 현재 자동차에 사용되는 내장재 종류
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {currentMaterials.map((mat, i) => (
+                  <div key={i} className="bg-slate-900/50 rounded-xl p-4 border border-slate-700/30">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-indigo-400 font-bold">{mat.name}</span>
+                      <span className="text-xs text-slate-500">({mat.fullName})</span>
+                    </div>
+                    <p className="text-sm text-slate-300 mb-2">{mat.usage}</p>
+                    <p className="text-xs text-slate-500">{mat.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 기계적 물성 비교 */}
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 overflow-x-auto">
-              <h2 className="text-xl font-bold text-white mb-6">기존 소재 vs IIT 기술 비교</h2>
-              <table className="w-full min-w-[800px]">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">💪</span> 기계적 물성 비교
+              </h2>
+              <table className="w-full min-w-[700px] text-sm">
                 <thead>
                   <tr className="text-left border-b border-slate-700/50">
-                    <th className="pb-4 text-slate-400 font-medium">소재</th>
-                    <th className="pb-4 text-slate-400 font-medium">밀도 (g/cm³)</th>
-                    <th className="pb-4 text-slate-400 font-medium">인장강도 (MPa)</th>
-                    <th className="pb-4 text-slate-400 font-medium">주요 용도</th>
-                    <th className="pb-4 text-slate-400 font-medium">장점</th>
-                    <th className="pb-4 text-slate-400 font-medium">단점</th>
+                    <th className="pb-3 text-slate-400 font-medium">재료</th>
+                    <th className="pb-3 text-slate-400 font-medium">인장강도 (MPa)</th>
+                    <th className="pb-3 text-slate-400 font-medium">굽힘강도 (MPa)</th>
+                    <th className="pb-3 text-slate-400 font-medium">충격강도 (kJ/m²)</th>
+                    <th className="pb-3 text-slate-400 font-medium">탄성계수 (GPa)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {materialComparison.map((mat, index) => (
-                    <tr
-                      key={index}
-                      className={`border-b border-slate-700/30 ${
-                        mat.material.includes('IIT') ? 'bg-indigo-500/10' : ''
-                      }`}
-                    >
-                      <td className="py-4">
-                        <span className={mat.material.includes('IIT') ? 'text-indigo-400 font-medium' : 'text-white'}>
-                          {mat.material}
-                        </span>
-                      </td>
-                      <td className="py-4 text-slate-300">{mat.density}</td>
-                      <td className="py-4 text-slate-300">{mat.tensile}</td>
-                      <td className="py-4 text-slate-300">{mat.usage}</td>
-                      <td className="py-4 text-green-400">{mat.pros}</td>
-                      <td className="py-4 text-orange-400">{mat.cons}</td>
+                  {mechanicalProperties.map((mat, i) => (
+                    <tr key={i} className={`border-b border-slate-700/30 ${mat.material.includes('IIT') ? 'bg-indigo-500/10' : ''}`}>
+                      <td className="py-3"><span className={mat.material.includes('IIT') ? 'text-indigo-400 font-medium' : 'text-white'}>{mat.material}</span></td>
+                      <td className="py-3 text-slate-300">{mat.tensile}</td>
+                      <td className="py-3 text-slate-300">{mat.flexural}</td>
+                      <td className="py-3 text-slate-300">{mat.impact}</td>
+                      <td className="py-3 text-slate-300">{mat.modulus}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {/* Material Properties Visual */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
-                <h3 className="text-lg font-semibold text-white mb-4">HDPE 특성</h3>
-                <div className="space-y-4">
-                  {[
-                    { label: '밀도', value: '0.93-0.97 g/cm³', icon: '⚖️' },
-                    { label: '인장강도', value: '20-37 MPa', icon: '💪' },
-                    { label: '내열성', value: '80-120°C', icon: '🌡️' },
-                    { label: '재활용성', value: '우수', icon: '♻️' },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-slate-300">
-                        <span>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </span>
-                      <span className="text-indigo-400 font-medium">{item.value}</span>
-                    </div>
+            {/* 열적 특성 비교 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 overflow-x-auto">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🌡️</span> 열적 특성 비교
+              </h2>
+              <table className="w-full min-w-[600px] text-sm">
+                <thead>
+                  <tr className="text-left border-b border-slate-700/50">
+                    <th className="pb-3 text-slate-400 font-medium">재료</th>
+                    <th className="pb-3 text-slate-400 font-medium">열변형온도 (°C)</th>
+                    <th className="pb-3 text-slate-400 font-medium">연속사용온도 (°C)</th>
+                    <th className="pb-3 text-slate-400 font-medium">열팽창계수 (×10⁻⁵/°C)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {thermalProperties.map((mat, i) => (
+                    <tr key={i} className={`border-b border-slate-700/30 ${mat.material.includes('IIT') ? 'bg-indigo-500/10' : ''}`}>
+                      <td className="py-3"><span className={mat.material.includes('IIT') ? 'text-indigo-400 font-medium' : 'text-white'}>{mat.material}</span></td>
+                      <td className="py-3 text-orange-300">{mat.hdt}</td>
+                      <td className="py-3 text-yellow-300">{mat.continuous}</td>
+                      <td className="py-3 text-cyan-300">{mat.expansion}</td>
+                    </tr>
                   ))}
+                </tbody>
+              </table>
+              {/* 용어 설명 */}
+              <div className="mt-4 p-4 bg-slate-900/50 rounded-xl text-xs">
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <span className="text-orange-400 font-semibold">열변형온도 (HDT)</span>
+                    <p className="text-slate-400 mt-1">일정 하중에서 변형 시작 온도. 여름 차량 내부: 80°C+</p>
+                  </div>
+                  <div>
+                    <span className="text-yellow-400 font-semibold">연속사용온도</span>
+                    <p className="text-slate-400 mt-1">장기 사용 시 물성 유지 최대 온도</p>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400 font-semibold">열팽창계수</span>
+                    <p className="text-slate-400 mt-1">온도 1°C당 길이 변화율. 작을수록 안정</p>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
-                <h3 className="text-lg font-semibold text-white mb-4">개선 CFRP 특성</h3>
-                <div className="space-y-4">
-                  {[
-                    { label: '굽힘 강도', value: '1,040+ MPa', icon: '📈' },
-                    { label: '굽힘 탄성률', value: '55+ GPa', icon: '📊' },
-                    { label: '층간 전단강도', value: '55+ MPa', icon: '🔗' },
-                    { label: '경량화', value: '알루미늄 대비 40%', icon: '🪶' },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-slate-300">
-                        <span>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </span>
-                      <span className="text-purple-400 font-medium">{item.value}</span>
-                    </div>
+            {/* 내구성 비교 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 overflow-x-auto">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🛡️</span> 내구성 비교
+              </h2>
+              <table className="w-full min-w-[700px] text-sm">
+                <thead>
+                  <tr className="text-left border-b border-slate-700/50">
+                    <th className="pb-3 text-slate-400 font-medium">재료</th>
+                    <th className="pb-3 text-slate-400 font-medium">내스크래치성</th>
+                    <th className="pb-3 text-slate-400 font-medium">내열성</th>
+                    <th className="pb-3 text-slate-400 font-medium">내화학성</th>
+                    <th className="pb-3 text-slate-400 font-medium">내후성</th>
+                    <th className="pb-3 text-slate-400 font-medium">UV 안정성</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {durabilityProperties.map((mat, i) => (
+                    <tr key={i} className={`border-b border-slate-700/30 ${mat.material.includes('IIT') ? 'bg-indigo-500/10' : ''}`}>
+                      <td className="py-3"><span className={mat.material.includes('IIT') ? 'text-indigo-400 font-medium' : 'text-white'}>{mat.material}</span></td>
+                      <td className="py-3"><span className="text-yellow-400">{'★'.repeat(mat.scratch)}{'☆'.repeat(5 - mat.scratch)}</span></td>
+                      <td className="py-3"><span className="text-orange-400">{'★'.repeat(mat.heat)}{'☆'.repeat(5 - mat.heat)}</span></td>
+                      <td className="py-3"><span className="text-green-400">{'★'.repeat(mat.chemical)}{'☆'.repeat(5 - mat.chemical)}</span></td>
+                      <td className="py-3"><span className="text-blue-400">{'★'.repeat(mat.weather)}{'☆'.repeat(5 - mat.weather)}</span></td>
+                      <td className="py-3"><span className="text-purple-400">{'★'.repeat(mat.uv)}{'☆'.repeat(5 - mat.uv)}</span></td>
+                    </tr>
                   ))}
+                </tbody>
+              </table>
+              {/* 용어 설명 */}
+              <div className="mt-4 p-4 bg-slate-900/50 rounded-xl text-xs">
+                <div className="grid md:grid-cols-5 gap-3">
+                  <div><span className="text-yellow-400 font-semibold">내스크래치성</span><p className="text-slate-400">긁힘 저항</p></div>
+                  <div><span className="text-orange-400 font-semibold">내열성</span><p className="text-slate-400">고온 변형 저항</p></div>
+                  <div><span className="text-green-400 font-semibold">내화학성</span><p className="text-slate-400">세척제/화장품 저항</p></div>
+                  <div><span className="text-blue-400 font-semibold">내후성</span><p className="text-slate-400">장기 환경 노출 저항</p></div>
+                  <div><span className="text-purple-400 font-semibold">UV 안정성</span><p className="text-slate-400">자외선 황변/분해 저항</p></div>
                 </div>
+              </div>
+            </div>
+
+            {/* 환경성 비교 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 overflow-x-auto">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🌱</span> 환경성 비교
+              </h2>
+              <table className="w-full min-w-[700px] text-sm">
+                <thead>
+                  <tr className="text-left border-b border-slate-700/50">
+                    <th className="pb-3 text-slate-400 font-medium">재료</th>
+                    <th className="pb-3 text-slate-400 font-medium">원료 출처</th>
+                    <th className="pb-3 text-slate-400 font-medium">재활용성</th>
+                    <th className="pb-3 text-slate-400 font-medium">생분해성</th>
+                    <th className="pb-3 text-slate-400 font-medium">CO₂ 배출량</th>
+                    <th className="pb-3 text-slate-400 font-medium">환경 등급</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {environmentalProperties.map((mat, i) => (
+                    <tr key={i} className={`border-b border-slate-700/30 ${mat.material.includes('IIT') ? 'bg-indigo-500/10' : ''}`}>
+                      <td className="py-3"><span className={mat.material.includes('IIT') ? 'text-indigo-400 font-medium' : 'text-white'}>{mat.material}</span></td>
+                      <td className="py-3 text-slate-300">{mat.source}</td>
+                      <td className="py-3"><span className={mat.recyclable === '우수' || mat.recyclable === '가능' ? 'text-green-400' : 'text-orange-400'}>{mat.recyclable}</span></td>
+                      <td className="py-3"><span className={mat.biodegradable === '부분' ? 'text-green-400' : 'text-slate-500'}>{mat.biodegradable}</span></td>
+                      <td className="py-3"><span className={mat.co2 === '낮음' ? 'text-green-400' : mat.co2 === '중간' ? 'text-yellow-400' : 'text-red-400'}>{mat.co2}</span></td>
+                      <td className="py-3"><span className="text-green-400">{'★'.repeat(mat.grade)}{'☆'.repeat(5 - mat.grade)}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* IIT 기술 장점 요약 */}
+            <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl p-6 border border-indigo-500/20">
+              <h2 className="text-xl font-bold text-white mb-6">🏆 IIT 기술의 종합 우위</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { title: '경량화', value: '10~20%', desc: '중량 감소', icon: '🪶', color: 'text-blue-400' },
+                  { title: '친환경', value: '30~50%', desc: 'CO₂ 감소', icon: '🌱', color: 'text-green-400' },
+                  { title: '지속가능', value: '천연섬유', desc: '바이오 원료', icon: '♻️', color: 'text-teal-400' },
+                  { title: '고성능', value: '+30%', desc: '강도 향상', icon: '💪', color: 'text-purple-400' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-slate-800/50 rounded-xl p-4 text-center">
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <div className={`text-2xl font-bold ${item.color}`}>{item.value}</div>
+                    <div className="text-white font-medium">{item.title}</div>
+                    <div className="text-xs text-slate-400">{item.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
