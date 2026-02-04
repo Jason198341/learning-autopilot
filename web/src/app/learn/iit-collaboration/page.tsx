@@ -611,13 +611,122 @@ H H   H H   H H   H H`}
               </div>
             </div>
 
-            {/* 섬유 종류 */}
+            {/* 섬유의 과학 */}
             <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50">
-              <h2 className="text-2xl font-bold text-white mb-6">2.4 섬유(Fiber) 종류</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">2.4 섬유(Fiber)의 과학</h2>
+
+              <p className="text-slate-300 mb-6">섬유는 <span className="text-green-400">가늘고 긴 실 모양</span>의 물질입니다.</p>
+
+              {/* 섬유 분류 트리 */}
+              <div className="bg-slate-900/50 rounded-xl p-6 font-mono text-sm mb-6">
+                <div className="text-center text-green-400 mb-4 font-bold">섬유의 분류</div>
+                <pre className="text-slate-300 text-xs overflow-x-auto">
+{`섬유(Fiber)
+├── 천연섬유 (Natural Fiber)
+│   ├── 식물성: 면(Cotton), 마(Hemp), 사카룸 문자
+│   ├── 동물성: 양모(Wool), 실크(Silk)
+│   └── 광물성: 석면(Asbestos) - 현재 금지
+│
+└── 인조섬유 (Synthetic Fiber)
+    ├── 합성섬유: 나일론, 폴리에스터, 탄소섬유
+    └── 재생섬유: 레이온, 텐셀`}
+                </pre>
+              </div>
+
+              {/* 사카룸 문자 상세 */}
+              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 mb-6">
+                <h3 className="text-lg font-semibold text-green-400 mb-4">🌿 사카룸 문자(Saccharum Munja) 섬유</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <div className="text-sm text-slate-400 mb-2">다른 이름</div>
+                    <p className="text-slate-300 text-sm mb-4">카나(Kana), 사르칸다(Sarkanda), 문자(Munja)</p>
+
+                    <div className="text-sm text-slate-400 mb-2">원산지</div>
+                    <p className="text-slate-300 text-sm mb-4">인도, 파키스탄, 네팔 등 남아시아 지역</p>
+
+                    <div className="text-sm text-slate-400 mb-2">특징</div>
+                    <ul className="text-slate-300 text-sm space-y-1">
+                      <li>• 사탕수수과(Saccharum) 식물의 일종</li>
+                      <li>• 키가 2~4m까지 자라는 다년생 풀</li>
+                      <li>• 인도에서 지붕, 바구니, 밧줄 만드는 데 전통적 사용</li>
+                      <li>• 매우 저렴하고 풍부함 (잡초처럼 자람)</li>
+                      <li>• 연간 수확 가능 (지속 가능한 자원)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-400 mb-2">화학 성분</div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-300 text-sm">셀룰로오스(Cellulose)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-green-500 rounded-full" style={{width: '50%'}}></div>
+                          </div>
+                          <span className="text-green-400 text-xs">45~55%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-300 text-sm">헤미셀룰로오스</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-emerald-500 rounded-full" style={{width: '22%'}}></div>
+                          </div>
+                          <span className="text-emerald-400 text-xs">20~25%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-300 text-sm">리그닌(Lignin)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-amber-500 rounded-full" style={{width: '17%'}}></div>
+                          </div>
+                          <span className="text-amber-400 text-xs">15~20%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-300 text-sm">기타 (왁스, 펙틴)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-slate-500 rounded-full" style={{width: '7%'}}></div>
+                          </div>
+                          <span className="text-slate-400 text-xs">5~10%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 셀룰로오스 분자 구조 */}
+              <div className="bg-slate-900/50 rounded-xl p-6 mb-6">
+                <h3 className="text-lg font-semibold text-cyan-400 mb-4">셀룰로오스의 분자 구조</h3>
+                <p className="text-slate-300 text-sm mb-4">셀룰로오스(Cellulose) = 식물 세포벽의 주성분</p>
+                <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                  <pre className="text-slate-300 text-center">
+{`    CH₂OH           CH₂OH           CH₂OH
+       │              │              │
+   ┌───O───┐     ┌───O───┐     ┌───O───┐
+   │       │     │       │     │       │
+────O       O─────O       O─────O       O────
+   │       │     │       │     │       │
+   └───────┘     └───────┘     └───────┘
+     │  │          │  │          │  │
+     OH OH         OH OH         OH OH`}
+                  </pre>
+                </div>
+                <div className="mt-4 p-3 bg-cyan-500/10 rounded-lg">
+                  <p className="text-cyan-300 text-sm">→ 포도당(Glucose) 분자가 수천 개 연결된 것</p>
+                  <p className="text-cyan-300 text-sm">→ 화학식: (C₆H₁₀O₅)n</p>
+                  <p className="text-slate-400 text-xs mt-1">→ 나무, 종이, 면의 주성분과 동일!</p>
+                </div>
+              </div>
+
+              {/* 섬유 종류별 비교 카드 */}
+              <h3 className="text-lg font-semibold text-white mb-4">섬유 종류별 비교</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-green-500/10 rounded-xl p-5 border border-green-500/20">
                   <div className="text-2xl mb-2">🌿</div>
-                  <h3 className="font-semibold text-green-400 mb-2">천연섬유</h3>
+                  <h4 className="font-semibold text-green-400 mb-2">천연섬유</h4>
                   <p className="text-sm text-slate-300 mb-2">황(Saccharum Munja), 대마, 아마</p>
                   <div className="flex justify-between text-xs">
                     <span className="text-slate-400">강도: 중간</span>
@@ -626,7 +735,7 @@ H H   H H   H H   H H`}
                 </div>
                 <div className="bg-blue-500/10 rounded-xl p-5 border border-blue-500/20">
                   <div className="text-2xl mb-2">🔷</div>
-                  <h3 className="font-semibold text-blue-400 mb-2">유리섬유</h3>
+                  <h4 className="font-semibold text-blue-400 mb-2">유리섬유</h4>
                   <p className="text-sm text-slate-300 mb-2">E-glass</p>
                   <div className="flex justify-between text-xs">
                     <span className="text-slate-400">강도: 높음</span>
@@ -635,7 +744,7 @@ H H   H H   H H   H H`}
                 </div>
                 <div className="bg-purple-500/10 rounded-xl p-5 border border-purple-500/20">
                   <div className="text-2xl mb-2">⬛</div>
-                  <h3 className="font-semibold text-purple-400 mb-2">탄소섬유</h3>
+                  <h4 className="font-semibold text-purple-400 mb-2">탄소섬유</h4>
                   <p className="text-sm text-slate-300 mb-2">T700, T800</p>
                   <div className="flex justify-between text-xs">
                     <span className="text-slate-400">강도: 매우 높음</span>
@@ -645,52 +754,87 @@ H H   H H   H H   H H`}
               </div>
             </div>
 
-            {/* 복합재료 */}
+            {/* 복합재료의 원리 */}
             <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl p-8 border border-purple-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">2.5 복합재료(Composite)</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="text-slate-300 mb-4">
-                    <span className="text-purple-400 font-semibold">복합재료</span>는 두 가지 이상 재료를 결합하여 새로운 특성을 창출한 재료입니다.
-                  </p>
-                  <div className="bg-slate-800/50 rounded-xl p-4">
-                    <div className="text-sm font-semibold text-purple-400 mb-3">구성 요소</div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
-                        <span className="text-slate-300">기지재(Matrix) - 섬유를 감싸는 재료</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
-                        <span className="text-slate-300">강화재(Reinforcement) - 강도 담당</span>
-                      </div>
+              <h2 className="text-2xl font-bold text-white mb-6">2.5 복합재료(Composite)의 원리</h2>
+
+              <p className="text-slate-300 mb-6">
+                <span className="text-purple-400 font-semibold">복합재료</span>는 두 가지 이상의 서로 다른 재료를 합쳐서 각각의 <span className="text-red-400">단점은 줄이고</span> <span className="text-green-400">장점은 살린</span> 새로운 재료입니다.
+              </p>
+
+              {/* 복합재료 구조 다이어그램 */}
+              <div className="bg-slate-900/50 rounded-xl p-6 mb-6">
+                <div className="text-center text-purple-400 mb-4 font-bold">복합재료의 기본 구조</div>
+                <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-xs overflow-x-auto mb-4">
+                  <pre className="text-slate-300 text-center">
+{`═══════════════════════════════════  ← 섬유(강화재)
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ← 매트릭스
+═══════════════════════════════════  ← 섬유(강화재)
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ← 매트릭스
+═══════════════════════════════════  ← 섬유(강화재)`}
+                  </pre>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                      <span className="font-semibold text-blue-400">매트릭스(Matrix)</span>
                     </div>
+                    <p className="text-slate-300 text-sm">섬유를 감싸고 지지하는 재료</p>
+                    <p className="text-slate-400 text-xs mt-1">• 플라스틱(HDPE, 에폭시 등)</p>
+                    <p className="text-slate-400 text-xs">• 힘을 섬유로 전달하는 역할</p>
+                  </div>
+                  <div className="bg-orange-500/10 rounded-lg p-4 border border-orange-500/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
+                      <span className="font-semibold text-orange-400">강화재(Reinforcement)</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">실제로 힘을 버티는 재료</p>
+                    <p className="text-slate-400 text-xs mt-1">• 섬유(유리섬유, 탄소섬유, 천연섬유)</p>
+                    <p className="text-slate-400 text-xs">• 복합재료의 강도를 결정</p>
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <div className="text-sm font-semibold text-pink-400 mb-2">예시</div>
-                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
-                    <span className="text-2xl">🏗️</span>
-                    <div>
-                      <div className="text-white font-medium">콘크리트</div>
-                      <div className="text-xs text-slate-400">시멘트(기지재) + 자갈(강화재)</div>
-                    </div>
-                  </div>
-                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
-                    <span className="text-2xl">🚗</span>
-                    <div>
-                      <div className="text-white font-medium">CFRP</div>
-                      <div className="text-xs text-slate-400">에폭시(기지재) + 탄소섬유(강화재)</div>
-                    </div>
-                  </div>
-                  <div className="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
-                    <span className="text-2xl">🌿</span>
-                    <div>
-                      <div className="text-white font-medium">IIT 천연섬유 복합재</div>
-                      <div className="text-xs text-slate-400">HDPE(기지재) + Saccharum Munja(강화재)</div>
-                    </div>
-                  </div>
-                </div>
+              </div>
+
+              {/* 일상생활의 복합재료 예시 테이블 */}
+              <h3 className="text-lg font-semibold text-pink-400 mb-4">일상생활의 복합재료 예시</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[600px]">
+                  <thead>
+                    <tr className="border-b border-slate-700">
+                      <th className="text-left py-3 px-4 text-slate-400 font-medium">복합재료</th>
+                      <th className="text-left py-3 px-4 text-blue-400 font-medium">매트릭스</th>
+                      <th className="text-left py-3 px-4 text-orange-400 font-medium">강화재</th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-medium">용도</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-white">🏗️ 철근 콘크리트</td>
+                      <td className="py-3 px-4 text-slate-300">콘크리트</td>
+                      <td className="py-3 px-4 text-slate-300">철근</td>
+                      <td className="py-3 px-4 text-slate-400">건물, 다리</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-white">🛁 유리섬유 강화 플라스틱(FRP)</td>
+                      <td className="py-3 px-4 text-slate-300">폴리에스터</td>
+                      <td className="py-3 px-4 text-slate-300">유리섬유</td>
+                      <td className="py-3 px-4 text-slate-400">욕조, 보트</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-3 px-4 text-white">✈️ 탄소섬유 강화 플라스틱(CFRP)</td>
+                      <td className="py-3 px-4 text-slate-300">에폭시</td>
+                      <td className="py-3 px-4 text-slate-300">탄소섬유</td>
+                      <td className="py-3 px-4 text-slate-400">비행기, 스포츠카</td>
+                    </tr>
+                    <tr className="bg-green-500/10">
+                      <td className="py-3 px-4 text-green-400 font-semibold">🌿 IIT 제안 복합재</td>
+                      <td className="py-3 px-4 text-green-300">HDPE</td>
+                      <td className="py-3 px-4 text-green-300">사카룸 문자</td>
+                      <td className="py-3 px-4 text-green-400">자동차 내장재</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
