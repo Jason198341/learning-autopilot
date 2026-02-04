@@ -25,9 +25,19 @@ const glossaryTerms: GlossaryTerm[] = [
     progress: 65,
     relatedTopics: ['내장재 플라스틱', 'IML', 'IMR', 'IMF'],
   },
+  {
+    id: 'cafe-phase-3',
+    term: 'CAFE Phase 3',
+    fullName: 'Corporate Average Fuel Efficiency Phase III',
+    korean: '기업 평균 연비 규제 3단계',
+    category: '법규',
+    description: '2027년 시행 인도 연비 규제. 기업 평균 CO2 91.7g/km 이하 의무화. Super Credit, 909kg 논쟁 포함',
+    progress: 60,
+    relatedTopics: ['WLTP', 'BEV', 'HEV', '경량화', '인도 법규'],
+  },
 ];
 
-const categories = ['전체', '표면처리', '재료', '설계', '공정', '품질'];
+const categories = ['전체', '표면처리', '재료', '설계', '공정', '품질', '법규'];
 
 export default function GlossaryPage() {
   const [searchTerm, setSearchTerm] = useState('');
