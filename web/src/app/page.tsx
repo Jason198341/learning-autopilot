@@ -77,6 +77,7 @@ const categories = [
 const glossaryTerms = [
   { id: 'imd', term: 'IMD', fullName: 'In-Mold Decoration', category: '표면처리' },
   { id: 'cafe-phase-3', term: 'CAFE Phase 3', fullName: 'Corporate Average Fuel Efficiency', category: '법규' },
+  { id: 'bncap-2.0', term: 'BNCAP 2.0', fullName: 'Bharat New Car Assessment Programme', category: '법규' },
 ];
 
 // Learning steps
@@ -147,7 +148,7 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
             { label: '학습 카테고리', value: '6', icon: '📁' },
-            { label: '용어 사전', value: '2', icon: '📚' },
+            { label: '용어 사전', value: '3', icon: '📚' },
             { label: '지식 문서', value: '50', icon: '📄' },
             { label: '평균 숙련도', value: '61%', icon: '📈' },
             { label: 'Git 커밋', value: '18', icon: '💾' },

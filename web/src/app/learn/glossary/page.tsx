@@ -35,6 +35,16 @@ const glossaryTerms: GlossaryTerm[] = [
     progress: 60,
     relatedTopics: ['WLTP', 'BEV', 'HEV', '경량화', '인도 법규'],
   },
+  {
+    id: 'bncap-2.0',
+    term: 'BNCAP 2.0',
+    fullName: 'Bharat New Car Assessment Programme 2.0',
+    korean: '인도 신차 안전 평가 2.0',
+    category: '법규',
+    description: '2027년 10월 시행 인도 차세대 안전 평가. 100점 만점, 5개 충돌 시험, 보행자/ADAS 평가 포함. Euro NCAP 수준',
+    progress: 55,
+    relatedTopics: ['Euro NCAP', 'GNCAP', 'AIS-197', 'ESC', 'ADAS', '인도 법규'],
+  },
 ];
 
 const categories = ['전체', '표면처리', '재료', '설계', '공정', '품질', '법규'];
