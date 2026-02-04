@@ -27,6 +27,17 @@ const categories = [
     icon: '🔌',
     color: 'from-emerald-500 to-teal-600',
   },
+  {
+    id: 'automotive-interior-plastics',
+    title: '내장재 플라스틱',
+    subtitle: 'Interior Plastics Materials',
+    description: 'PP, ABS, PC 등 재질 특성, 물성 데이터, 부품별 소재 선정, 품질 요구사항',
+    progress: 70,
+    totalSteps: 7,
+    completedSteps: 6,
+    icon: '🪑',
+    color: 'from-amber-500 to-orange-600',
+  },
 ];
 
 // Learning steps
@@ -96,10 +107,10 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '2', icon: '📁' },
-            { label: '지식 문서', value: '14', icon: '📄' },
+            { label: '학습 카테고리', value: '3', icon: '📁' },
+            { label: '지식 문서', value: '21', icon: '📄' },
             { label: '평균 숙련도', value: '70%', icon: '📈' },
-            { label: 'Git 커밋', value: '6', icon: '💾' },
+            { label: 'Git 커밋', value: '8', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
