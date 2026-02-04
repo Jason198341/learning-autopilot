@@ -407,6 +407,61 @@ const materialComparison = [
   { material: 'IIT CFRP', density: '1.55', tensile: '500+', usage: '구조 부품', pros: '초고강도, 경량', cons: '고가' },
 ];
 
+// 비용 비교
+const costComparison = [
+  { material: 'ABS', rawPrice: '1.8~2.5', processingCost: '중간', grade: 3 },
+  { material: 'PP', rawPrice: '1.2~1.5', processingCost: '낮음', grade: 5 },
+  { material: 'PP-GF30', rawPrice: '1.8~2.2', processingCost: '중간', grade: 4 },
+  { material: 'IIT 사카룸/HDPE', rawPrice: '1.0~1.5', processingCost: '중간', grade: 5 },
+  { material: 'IIT CFRP', rawPrice: '15~30', processingCost: '높음', grade: 1 },
+];
+
+// 섬유 원료 가격 비교
+const fiberPrices = [
+  { fiber: '사카룸 문자 (인도)', price: '$0.1~0.3/kg', note: '매우 저렴' },
+  { fiber: '아마/황마', price: '$0.5~1/kg', note: '저렴' },
+  { fiber: '유리섬유', price: '$1~2/kg', note: '중간' },
+  { fiber: '탄소섬유', price: '$15~30/kg', note: '고가' },
+];
+
+// 부품별 적용 가능성 - 사카룸/HDPE
+const partApplicationSacharum = [
+  { part: '도어트림 기재', current: 'PP-GF', rating: 5, note: '최적 적용처' },
+  { part: '필러트림', current: 'ABS/PP', rating: 4, note: '적용 가능' },
+  { part: '트렁크 트림', current: 'PP', rating: 5, note: '최적 적용처' },
+  { part: '패키지 트레이', current: 'PP-GF', rating: 4, note: '적용 가능' },
+  { part: '시트백 보드', current: 'PP/천연섬유', rating: 5, note: '이미 유사재 사용' },
+  { part: '헤드라이너 기재', current: 'PP/PU', rating: 3, note: '추가 검증 필요' },
+  { part: '대시보드 기재', current: 'PP-GF', rating: 3, note: '열변형 주의' },
+  { part: '에어덕트', current: 'PP-TD', rating: 2, note: '치수 안정성' },
+];
+
+// 부품별 적용 가능성 - CFRP
+const partApplicationCFRP = [
+  { part: '고급차 센터콘솔', current: '금속/플라스틱', rating: 5, note: '프리미엄 감성' },
+  { part: '스포츠카 내장', current: '가죽/금속', rating: 5, note: '경량화+고급화' },
+  { part: '시트 프레임', current: '금속', rating: 4, note: '경량화 효과' },
+  { part: '스티어링 휠 코어', current: '금속', rating: 3, note: '충돌 안전 검증' },
+  { part: '대시보드 구조물', current: '금속/PP-GF', rating: 3, note: '비용 대비 효과' },
+];
+
+// 연필 경도 비교
+const pencilHardness = [
+  { material: 'ABS', hardness: 'F ~ H' },
+  { material: 'PP', hardness: 'B ~ F' },
+  { material: 'HDPE', hardness: 'B ~ HB' },
+  { material: '사카룸/HDPE', hardness: 'HB ~ H' },
+  { material: 'CFRP', hardness: '2H ~ 4H' },
+];
+
+// 자동차 내부 온도 분포
+const carTemperatures = [
+  { location: '대시보드', temp: '90~110°C', note: '최고온, 직사광선 직접 노출' },
+  { location: '센터콘솔', temp: '70~85°C', note: '일부 직사광선 노출' },
+  { location: '시트', temp: '50~70°C', note: '간접 열 영향' },
+  { location: '바닥', temp: '40~50°C', note: '상대적 저온' },
+];
+
 const swotData = {
   strengths: [
     { title: 'IIT 전문성', desc: '세계적 수준의 재료공학 연구 역량' },
@@ -1730,6 +1785,227 @@ H H   H H   H H   H H`}
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* 환경성 용어 설명 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">📖</span> 환경성 용어 설명
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-slate-900/50 rounded-xl p-4">
+                  <h4 className="text-green-400 font-semibold mb-2">🌿 생분해성 (Biodegradability)</h4>
+                  <ul className="text-sm text-slate-300 space-y-1">
+                    <li>• 미생물에 의해 분해되는 정도</li>
+                    <li>• 사카룸 섬유: 천연 셀룰로오스 → 생분해 가능</li>
+                    <li>• HDPE 매트릭스: 생분해 안 됨</li>
+                    <li>• 복합재 전체: "부분 생분해"</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-900/50 rounded-xl p-4">
+                  <h4 className="text-blue-400 font-semibold mb-2">👣 탄소발자국 (Carbon Footprint)</h4>
+                  <ul className="text-sm text-slate-300 space-y-1">
+                    <li>• 제품 생산~폐기까지 CO₂ 총량</li>
+                    <li>• 천연섬유: 생장 시 CO₂ 흡수</li>
+                    <li>• → 카본 네거티브 가능</li>
+                    <li>• 석유 기반: CO₂ 배출</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-900/50 rounded-xl p-4">
+                  <h4 className="text-orange-400 font-semibold mb-2">♻️ 재활용성</h4>
+                  <ul className="text-sm text-slate-300 space-y-1">
+                    <li>• 열가소성(HDPE, PP): 녹여서 재사용</li>
+                    <li>• 열경화성(에폭시): 녹지 않음</li>
+                    <li>• CFRP: 탄소섬유 회수 기술 개발 중</li>
+                    <li>• (아직 비용이 높음)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 비교 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 overflow-x-auto">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">💰</span> 비용 비교
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-amber-400 font-semibold mb-3">재료별 비용</h4>
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-slate-700">
+                        <th className="text-left py-2 text-slate-400">재료</th>
+                        <th className="text-left py-2 text-slate-400">원료가격 ($/kg)</th>
+                        <th className="text-left py-2 text-slate-400">가공비용</th>
+                        <th className="text-left py-2 text-slate-400">총 비용</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {costComparison.map((item, i) => (
+                        <tr key={i} className={`border-b border-slate-700/30 ${item.material.includes('IIT') ? 'bg-indigo-500/10' : ''}`}>
+                          <td className="py-2"><span className={item.material.includes('IIT') ? 'text-indigo-400' : 'text-white'}>{item.material}</span></td>
+                          <td className="py-2 text-amber-300 font-mono">{item.rawPrice}</td>
+                          <td className="py-2 text-slate-300">{item.processingCost}</td>
+                          <td className="py-2"><span className="text-yellow-400">{'★'.repeat(item.grade)}{'☆'.repeat(5 - item.grade)}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <h4 className="text-cyan-400 font-semibold mb-3">섬유 원료 가격 비교</h4>
+                  <div className="space-y-3">
+                    {fiberPrices.map((item, i) => (
+                      <div key={i} className="flex items-center justify-between bg-slate-900/50 rounded-lg p-3">
+                        <span className="text-white">{item.fiber}</span>
+                        <div className="text-right">
+                          <span className="text-cyan-300 font-mono">{item.price}</span>
+                          <span className={`ml-2 text-xs px-2 py-0.5 rounded ${item.note.includes('매우') ? 'bg-green-500/20 text-green-300' : item.note === '저렴' ? 'bg-teal-500/20 text-teal-300' : item.note === '중간' ? 'bg-yellow-500/20 text-yellow-300' : 'bg-red-500/20 text-red-300'}`}>{item.note}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 부품별 적용 가능성 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🚗</span> 자동차 부품별 적용 가능성 평가
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* 사카룸/HDPE 적용 */}
+                <div className="bg-gradient-to-br from-green-500/5 to-teal-500/5 rounded-xl p-4 border border-green-500/20">
+                  <h4 className="text-green-400 font-semibold mb-3 flex items-center gap-2">
+                    <span>🌿</span> 사카룸/HDPE 복합재 (대량 생산 부품)
+                  </h4>
+                  <div className="space-y-2">
+                    {partApplicationSacharum.map((item, i) => (
+                      <div key={i} className="flex items-center justify-between text-sm bg-slate-900/30 rounded-lg px-3 py-2">
+                        <div>
+                          <span className="text-white">{item.part}</span>
+                          <span className="text-slate-500 text-xs ml-2">({item.current})</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-green-400 text-xs">{'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}</span>
+                          <span className={`text-xs px-2 py-0.5 rounded ${item.rating >= 4 ? 'bg-green-500/20 text-green-300' : item.rating >= 3 ? 'bg-yellow-500/20 text-yellow-300' : 'bg-orange-500/20 text-orange-300'}`}>{item.note}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* CFRP 적용 */}
+                <div className="bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-xl p-4 border border-purple-500/20">
+                  <h4 className="text-purple-400 font-semibold mb-3 flex items-center gap-2">
+                    <span>⚡</span> CFRP 복합재 (고부가가치/경량화 부품)
+                  </h4>
+                  <div className="space-y-2">
+                    {partApplicationCFRP.map((item, i) => (
+                      <div key={i} className="flex items-center justify-between text-sm bg-slate-900/30 rounded-lg px-3 py-2">
+                        <div>
+                          <span className="text-white">{item.part}</span>
+                          <span className="text-slate-500 text-xs ml-2">({item.current})</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-purple-400 text-xs">{'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}</span>
+                          <span className={`text-xs px-2 py-0.5 rounded ${item.rating >= 4 ? 'bg-green-500/20 text-green-300' : item.rating >= 3 ? 'bg-yellow-500/20 text-yellow-300' : 'bg-orange-500/20 text-orange-300'}`}>{item.note}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 심층 분석: 스크래치 저항성 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🔬</span> 심층 분석: 스크래치 저항성
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-yellow-400 font-semibold mb-3">연필 경도 테스트 (Pencil Hardness)</h4>
+                  <p className="text-sm text-slate-400 mb-3">다양한 경도의 연필로 표면을 긁어 긁히지 않는 등급 측정<br/>6B(가장 부드러움) ~ 9H(가장 단단함)</p>
+                  <div className="space-y-2">
+                    {pencilHardness.map((item, i) => (
+                      <div key={i} className="flex items-center justify-between bg-slate-900/50 rounded-lg px-3 py-2 text-sm">
+                        <span className={item.material.includes('사카룸') || item.material === 'CFRP' ? 'text-indigo-400' : 'text-white'}>{item.material}</span>
+                        <span className="text-yellow-300 font-mono">{item.hardness}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-cyan-400 font-semibold mb-3">스크래치 저항성 향상 방법</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="bg-slate-900/50 rounded-lg p-3">
+                      <span className="text-cyan-300 font-semibold">표면 코팅</span>
+                      <p className="text-slate-400">UV 코팅, 세라믹 코팅</p>
+                    </div>
+                    <div className="bg-slate-900/50 rounded-lg p-3">
+                      <span className="text-cyan-300 font-semibold">섬유 함량 증가</span>
+                      <p className="text-slate-400">표면에 섬유 노출은 감소</p>
+                    </div>
+                    <div className="bg-slate-900/50 rounded-lg p-3">
+                      <span className="text-cyan-300 font-semibold">나노 첨가제</span>
+                      <p className="text-slate-400">실리카, 알루미나 나노입자</p>
+                    </div>
+                  </div>
+                  <div className="mt-3 p-3 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
+                    <p className="text-sm text-indigo-300">
+                      <span className="font-semibold">IIT 복합재:</span> 사카룸/HDPE는 PP보다 우수, ABS와 비슷. CFRP는 매우 우수 (탄소섬유 자체가 단단함)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 심층 분석: 내열성 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="text-2xl">🌡️</span> 심층 분석: 내열성
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-orange-400 font-semibold mb-3">자동차 내부 온도 분포</h4>
+                  <div className="bg-slate-900/50 rounded-xl p-4">
+                    <div className="text-center text-yellow-400 mb-2">☀️ 직사광선</div>
+                    <div className="space-y-2">
+                      {carTemperatures.map((item, i) => (
+                        <div key={i} className="flex items-center justify-between bg-slate-800/50 rounded-lg px-3 py-2 text-sm">
+                          <span className="text-white">{item.location}</span>
+                          <div className="text-right">
+                            <span className={`font-mono ${item.temp.includes('90~110') ? 'text-red-400' : item.temp.includes('70~85') ? 'text-orange-400' : item.temp.includes('50~70') ? 'text-yellow-400' : 'text-green-400'}`}>{item.temp}</span>
+                            <p className="text-xs text-slate-500">{item.note}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-red-400 font-semibold mb-3">열에 의한 문제</h4>
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {[
+                      { name: '변형', desc: '뒤틀림, 처짐' },
+                      { name: '변색', desc: '황변, 탈색' },
+                      { name: '취화', desc: '딱딱해지고 부서짐' },
+                      { name: '가스 방출', desc: '냄새, 포깅(창 흐림)' },
+                    ].map((item, i) => (
+                      <div key={i} className="bg-slate-900/50 rounded-lg p-2 text-sm">
+                        <span className="text-red-300 font-semibold">{item.name}</span>
+                        <p className="text-slate-400 text-xs">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-3 bg-indigo-500/10 rounded-lg border border-indigo-500/20 text-sm">
+                    <p className="text-indigo-300 font-semibold mb-1">IIT 복합재 내열성:</p>
+                    <p className="text-slate-300"><span className="text-green-400">사카룸/HDPE:</span> HDPE 녹는점 130°C → 100°C까지 안전. 대시보드 직접 적용 주의</p>
+                    <p className="text-slate-300 mt-1"><span className="text-purple-400">CFRP:</span> 에폭시 내열온도 120~180°C, 탄소섬유 500°C+ 안정. 고온 부품 적용 가능</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* IIT 기술 장점 요약 */}
