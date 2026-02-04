@@ -109,19 +109,63 @@ const patents: Patent[] = [
     number: 'IN202521035215A',
     title: '3D Printing Eco-friendly Composite',
     titleKr: '3D 프린팅 친환경 복합소재',
-    description: '천연섬유 강화 바이오 기반 필라멘트를 사용한 FDM/FFF 방식 3D 프린팅 소재',
+    inventors: '니틴 쿠마르 아리아, 아파르나 싱',
+    institution: '인도 봄베이 공과대학교 (IIT Bombay)',
+    description: '천연섬유 강화 HDPE 기반 필라멘트를 사용한 FDM/FFF 방식 3D 프린팅 소재. HDPE의 수축/뒤틀림/기포 문제를 섬유 첨가로 해결',
     keyFeatures: [
-      'PLA/PBS 기반 바이오 수지',
-      '천연섬유 20-30% 함유',
-      'FDM/FFF 프린터 호환',
-      '시제품 신속 제작 가능',
+      'HDPE + 천연섬유 복합 필라멘트',
+      '수축률 감소 (4% → 1~2%)',
+      '뒤틀림(Warping) 현저히 감소',
+      '층간 접착력 향상',
     ],
     process: [
-      '바이오 수지 + 천연섬유 컴파운딩',
+      '원료 배합: HDPE 60~95% + 섬유 5~40%',
+      '트윈 스크류 압출기로 혼합',
       '필라멘트 압출 (1.75mm/2.85mm)',
-      '3D 프린팅 (FDM/FFF)',
-      '후처리 (필요시)',
+      'FDM/FFF 3D 프린팅',
     ],
+    processDetails: [
+      {
+        step: '1',
+        title: '3D 프린팅(FDM) 원리',
+        content: '필라멘트를 200~250°C 노즐로 가열 후 한 층씩 쌓아 3차원 물체 제작. 층 두께 0.1~0.3mm',
+        diagram: '복잡한 형상도 금형 없이 제작 가능'
+      },
+      {
+        step: '2',
+        title: 'HDPE 3D 프린팅 문제점',
+        content: '수축(Shrinkage): 냉각 시 2~4% 부피 감소 | 뒤틀림(Warping): 층별 냉각 속도 차이 | 기포(Void): 층 사이 공기 갇힘',
+        diagram: '섬유 첨가로 이 3가지 문제 해결!'
+      },
+      {
+        step: '3',
+        title: '섬유의 해결 원리',
+        content: '섬유는 냉각해도 수축 안 함 → HDPE 수축을 물리적으로 억제. 섬유가 층 사이를 가교(Bridge)하여 접착력 향상',
+        diagram: ''
+      },
+      {
+        step: '4',
+        title: '필라멘트 제조',
+        content: 'HDPE 펠릿 + 사카룸 문자 섬유 → 트윈 스크류 압출 → 1.75mm 또는 2.85mm 필라멘트 권취',
+        diagram: '중량%: 100g 복합재 = HDPE 80g + 섬유 20g → 섬유 20 중량%'
+      },
+    ],
+    scientificPrinciples: {
+      bondingPrinciple: {
+        problem: 'HDPE 3D 프린팅 시 수축/뒤틀림/기포 발생',
+        hydrophilic: '문제1 수축: HDPE 냉각 시 부피 2~4% 감소 → 치수 불량',
+        hydrophobic: '문제2 뒤틀림: 층별 냉각 속도 차이 → 모서리 들림',
+        solution: '섬유 첨가: 섬유가 수축 억제 + 방향별 힘 분산 + 층간 가교'
+      },
+      strengthPrinciple: {
+        mechanism: '섬유가 HDPE 수축을 물리적으로 막고, 층 사이를 연결(Bridge)하여 기포 감소',
+        comparison: [
+          { material: '순수 HDPE', strength: '수축률 2~4%', note: '문제 심각' },
+          { material: 'HDPE + 섬유 복합재', strength: '수축률 1~2%', note: '50% 개선' },
+          { material: '층간 접착력', strength: '30~50% 향상', note: '섬유 가교 효과' },
+        ]
+      }
+    },
     benefits: ['개발 시간 80% 단축', '금형 비용 절감', '맞춤형 부품 생산', '소량 다품종 대응'],
     applications: ['시제품 부품', '맞춤형 내장 액세서리', '소량 생산 부품', 'A/S 교체 부품'],
   },
