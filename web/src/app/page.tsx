@@ -60,6 +60,17 @@ const categories = [
     icon: '📚',
     color: 'from-teal-500 to-cyan-600',
   },
+  {
+    id: 'india-interior-regulations',
+    title: '인도 내장재 법규',
+    subtitle: 'India Interior Regulations',
+    description: 'CMVR/AIS/BIS 법규 체계, 삼소구(삼각대/소화기/구급상자), 난연성·돌출물 기준, TAC 인증 절차',
+    progress: 55,
+    totalSteps: 7,
+    completedSteps: 4,
+    icon: '🇮🇳',
+    color: 'from-orange-500 to-red-600',
+  },
 ];
 
 // Learning steps
@@ -129,10 +140,10 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '5', icon: '📁' },
-            { label: '지식 문서', value: '35', icon: '📄' },
-            { label: '평균 숙련도', value: '69%', icon: '📈' },
-            { label: 'Git 커밋', value: '12', icon: '💾' },
+            { label: '학습 카테고리', value: '6', icon: '📁' },
+            { label: '지식 문서', value: '42', icon: '📄' },
+            { label: '평균 숙련도', value: '67%', icon: '📈' },
+            { label: 'Git 커밋', value: '14', icon: '💾' },
           ].map((stat, i) => (
             <div
               key={i}
