@@ -104,6 +104,17 @@ const categories = [
     icon: '💡',
     color: 'from-purple-500 to-pink-600',
   },
+  {
+    id: 'chemistry-for-interior-design',
+    title: '🧪 내장재 화학 기초',
+    subtitle: 'Chemistry for Interior Design',
+    description: '원자 구조, 전자 배치, 화학결합, 고분자(PP/PE/ABS), 열가소성 vs 열경화성, 첨가제, 조립, 시험, 불량 진단, 설계 의사결정',
+    progress: 100,
+    totalSteps: 14,
+    completedSteps: 14,
+    icon: '⚗️',
+    color: 'from-rose-500 to-red-600',
+  },
 ];
 
 // Glossary terms (용어 사전 - 별도 섹션)
@@ -180,7 +191,7 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '9', icon: '📁' },
+            { label: '학습 카테고리', value: '10', icon: '📁' },
             { label: '용어 사전', value: '3', icon: '📚' },
             { label: '지식 문서', value: '50', icon: '📄' },
             { label: '평균 숙련도', value: '61%', icon: '📈' },
