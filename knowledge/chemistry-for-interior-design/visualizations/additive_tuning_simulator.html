@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polymer Additive Tuning Simulator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 10px; color: #00d4ff; font-size: 1.8em; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .panel h2 {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .additive-group {
+            margin-bottom: 15px;
+        }
+
+        .additive-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+
+        .additive-name { color: #ccc; }
+        .additive-value {
+            color: #00d4ff;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Color coding for different additive types */
+        .type-stabilizer input[type="range"]::-webkit-slider-thumb { background: #ff6b6b; }
+        .type-modifier input[type="range"]::-webkit-slider-thumb { background: #4ecdc4; }
+        .type-filler input[type="range"]::-webkit-slider-thumb { background: #ffe66d; }
+        .type-process input[type="range"]::-webkit-slider-thumb { background: #95e1d3; }
+        .type-color input[type="range"]::-webkit-slider-thumb { background: #dda0dd; }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .property-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .property-name { font-size: 0.8em; color: #aaa; }
+        .property-value {
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .property-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .property-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        /* Property colors */
+        .prop-stiffness .property-fill { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .prop-impact .property-fill { background: linear-gradient(90deg, #f093fb, #f5576c); }
+        .prop-hdt .property-fill { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+        .prop-tensile .property-fill { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+        .prop-shrinkage .property-fill { background: linear-gradient(90deg, #fa709a, #fee140); }
+        .prop-density .property-fill { background: linear-gradient(90deg, #a8edea, #fed6e3); }
+        .prop-process .property-fill { background: linear-gradient(90deg, #d299c2, #fef9d7); }
+        .prop-weather .property-fill { background: linear-gradient(90deg, #89f7fe, #66a6ff); }
+        .prop-surface .property-fill { background: linear-gradient(90deg, #fddb92, #d1fdff); }
+        .prop-cost .property-fill { background: linear-gradient(90deg, #f6d365, #fda085); }
+
+        .composition-bar {
+            display: flex;
+            height: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .comp-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: 600;
+            color: #333;
+            transition: width 0.3s ease;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .warnings {
+            background: rgba(255,107,107,0.1);
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            min-height: 60px;
+        }
+
+        .warnings h3 {
+            font-size: 0.85em;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+
+        .warning-item {
+            font-size: 0.8em;
+            color: #ffaaaa;
+            margin: 4px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .warning-item::before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.2s;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .preset-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .preset-btn.active {
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .property-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Polymer Additive Tuning Simulator</h1>
+        <p class="subtitle">자동차 내장재 PP 컴파운드 물성 시뮬레이터 | 슬라이더 조절 → 실시간 물성 변화</p>
+
+        <div class="preset-buttons">
+            <button class="preset-btn active" onclick="setPreset('standard')">표준 (PP+TD20+EPDM15)</button>
+            <button class="preset-btn" onclick="setPreset('highStiffness')">고강성</button>
+            <button class="preset-btn" onclick="setPreset('highImpact')">고충격</button>
+            <button class="preset-btn" onclick="setPreset('lowCost')">저원가</button>
+            <button class="preset-btn" onclick="setPreset('premium')">프리미엄</button>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left Panel: Additives -->
+            <div class="panel">
+                <h2>📊 첨가제 함량 조절</h2>
+
+                <div class="additive-group type-filler">
+                    <div class="additive-label">
+                        <span class="additive-name">탈크 (Talc) - 강성/치수안정</span>
+                        <span class="additive-value" id="val-talc">20%</span>
+                    </div>
+                    <input type="range" id="talc" min="0" max="40" value="20" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-modifier">
+                    <div class="additive-label">
+                        <span class="additive-name">EPDM - 충격보강</span>
+                        <span class="additive-value" id="val-epdm">15%</span>
+                    </div>
+                    <input type="range" id="epdm" min="0" max="30" value="15" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-stabilizer">
+                    <div class="additive-label">
+                        <span class="additive-name">UV 안정제 (HALS)</span>
+                        <span class="additive-value" id="val-uv">0.3%</span>
+                    </div>
+                    <input type="range" id="uv" min="0" max="10" value="3" step="1" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-stabilizer">
+                    <div class="additive-label">
+                        <span class="additive-name">산화방지제</span>
+                        <span class="additive-value" id="val-antioxidant">0.3%</span>
+                    </div>
+                    <input type="range" id="antioxidant" min="0" max="10" value="3" step="1" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-color">
+                    <div class="additive-label">
+                        <span class="additive-name">안료 (Pigment)</span>
+                        <span class="additive-value" id="val-pigment">2%</span>
+                    </div>
+                    <input type="range" id="pigment" min="0" max="5" value="2" step="0.5" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-process">
+                    <div class="additive-label">
+                        <span class="additive-name">활제 (Lubricant)</span>
+                        <span class="additive-value" id="val-lubricant">0.3%</span>
+                    </div>
+                    <input type="range" id="lubricant" min="0" max="15" value="3" step="1" oninput="updateAll()">
+                </div>
+
+                <div class="additive-group type-filler">
+                    <div class="additive-label">
+                        <span class="additive-name">유리섬유 (GF)</span>
+                        <span class="additive-value" id="val-gf">0%</span>
+                    </div>
+                    <input type="range" id="gf" min="0" max="40" value="0" oninput="updateAll()">
+                </div>
+
+                <h3 style="font-size: 0.9em; margin: 15px 0 10px; color: #aaa;">배합 비율</h3>
+                <div class="composition-bar" id="compositionBar"></div>
+
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background: #4a90d9;"></div>PP</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #f5a623;"></div>탈크</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #7ed321;"></div>EPDM</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #bd10e0;"></div>GF</div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #9b9b9b;"></div>기타</div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Properties -->
+            <div class="panel">
+                <h2>📈 예상 물성</h2>
+
+                <div class="property-grid">
+                    <div class="property-item prop-stiffness">
+                        <div class="property-header">
+                            <span class="property-name">굴곡탄성률 (강성)</span>
+                            <span class="property-value" id="prop-stiffness">2,500 MPa</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-stiffness"></div></div>
+                    </div>
+
+                    <div class="property-item prop-impact">
+                        <div class="property-header">
+                            <span class="property-name">충격강도 (Izod)</span>
+                            <span class="property-value" id="prop-impact">15 kJ/m²</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-impact"></div></div>
+                    </div>
+
+                    <div class="property-item prop-hdt">
+                        <div class="property-header">
+                            <span class="property-name">HDT (열변형온도)</span>
+                            <span class="property-value" id="prop-hdt">110°C</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-hdt"></div></div>
+                    </div>
+
+                    <div class="property-item prop-tensile">
+                        <div class="property-header">
+                            <span class="property-name">인장강도</span>
+                            <span class="property-value" id="prop-tensile">25 MPa</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-tensile"></div></div>
+                    </div>
+
+                    <div class="property-item prop-shrinkage">
+                        <div class="property-header">
+                            <span class="property-name">수축률</span>
+                            <span class="property-value" id="prop-shrinkage">0.8%</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-shrinkage"></div></div>
+                    </div>
+
+                    <div class="property-item prop-density">
+                        <div class="property-header">
+                            <span class="property-name">비중</span>
+                            <span class="property-value" id="prop-density">1.05</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-density"></div></div>
+                    </div>
+
+                    <div class="property-item prop-process">
+                        <div class="property-header">
+                            <span class="property-name">가공성</span>
+                            <span class="property-value" id="prop-process">양호</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-process"></div></div>
+                    </div>
+
+                    <div class="property-item prop-weather">
+                        <div class="property-header">
+                            <span class="property-name">내후성</span>
+                            <span class="property-value" id="prop-weather">양호</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-weather"></div></div>
+                    </div>
+
+                    <div class="property-item prop-surface">
+                        <div class="property-header">
+                            <span class="property-name">표면외관</span>
+                            <span class="property-value" id="prop-surface">양호</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-surface"></div></div>
+                    </div>
+
+                    <div class="property-item prop-cost">
+                        <div class="property-header">
+                            <span class="property-name">상대원가</span>
+                            <span class="property-value" id="prop-cost">100</span>
+                        </div>
+                        <div class="property-bar"><div class="property-fill" id="bar-cost"></div></div>
+                    </div>
+                </div>
+
+                <div class="warnings" id="warnings">
+                    <h3>⚠️ 주의사항</h3>
+                    <div id="warning-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const presets = {
+            standard: { talc: 20, epdm: 15, uv: 3, antioxidant: 3, pigment: 2, lubricant: 3, gf: 0 },
+            highStiffness: { talc: 35, epdm: 5, uv: 3, antioxidant: 3, pigment: 2, lubricant: 3, gf: 0 },
+            highImpact: { talc: 10, epdm: 25, uv: 3, antioxidant: 3, pigment: 2, lubricant: 3, gf: 0 },
+            lowCost: { talc: 30, epdm: 8, uv: 1, antioxidant: 2, pigment: 1, lubricant: 2, gf: 0 },
+            premium: { talc: 15, epdm: 18, uv: 5, antioxidant: 5, pigment: 2, lubricant: 4, gf: 0 }
+        };
+
+        function setPreset(name) {
+            const p = presets[name];
+            document.getElementById('talc').value = p.talc;
+            document.getElementById('epdm').value = p.epdm;
+            document.getElementById('uv').value = p.uv;
+            document.getElementById('antioxidant').value = p.antioxidant;
+            document.getElementById('pigment').value = p.pigment;
+            document.getElementById('lubricant').value = p.lubricant;
+            document.getElementById('gf').value = p.gf;
+
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            updateAll();
+        }
+
+        function updateAll() {
+            const talc = parseFloat(document.getElementById('talc').value);
+            const epdm = parseFloat(document.getElementById('epdm').value);
+            const uv = parseFloat(document.getElementById('uv').value) / 10;
+            const antioxidant = parseFloat(document.getElementById('antioxidant').value) / 10;
+            const pigment = parseFloat(document.getElementById('pigment').value);
+            const lubricant = parseFloat(document.getElementById('lubricant').value) / 10;
+            const gf = parseFloat(document.getElementById('gf').value);
+
+            // Update labels
+            document.getElementById('val-talc').textContent = talc + '%';
+            document.getElementById('val-epdm').textContent = epdm + '%';
+            document.getElementById('val-uv').textContent = uv.toFixed(1) + '%';
+            document.getElementById('val-antioxidant').textContent = antioxidant.toFixed(1) + '%';
+            document.getElementById('val-pigment').textContent = pigment + '%';
+            document.getElementById('val-lubricant').textContent = lubricant.toFixed(1) + '%';
+            document.getElementById('val-gf').textContent = gf + '%';
+
+            // Calculate properties
+            const others = uv + antioxidant + pigment + lubricant;
+            const pp = Math.max(0, 100 - talc - epdm - gf - others);
+
+            // Stiffness (MPa) - base 1300, talc +50/%, gf +80/%, epdm -30/%
+            const stiffness = Math.round(1300 + talc * 50 + gf * 80 - epdm * 30);
+
+            // Impact (kJ/m²) - base 5, epdm +0.8/%, talc -0.2/%, gf -0.1/%
+            const impact = Math.max(2, Math.round((5 + epdm * 0.8 - talc * 0.2 - gf * 0.1) * 10) / 10);
+
+            // HDT (°C) - base 80, talc +1.2/%, gf +1.5/%
+            const hdt = Math.round(80 + talc * 1.2 + gf * 1.5);
+
+            // Tensile (MPa) - base 30, talc -0.1/%, gf +0.8/%, epdm -0.2/%
+            const tensile = Math.round(30 - talc * 0.1 + gf * 0.8 - epdm * 0.2);
+
+            // Shrinkage (%) - base 1.5, talc -0.03/%, gf -0.04/%
+            const shrinkage = Math.max(0.2, (1.5 - talc * 0.03 - gf * 0.04).toFixed(2));
+
+            // Density - base 0.91, talc +0.008/%, gf +0.015/%
+            const density = (0.91 + talc * 0.008 + gf * 0.015).toFixed(2);
+
+            // Processability (0-100) - base 80, gf -1.5/%, talc>30 -10, lubricant +5/%
+            let process = 80 - gf * 1.5 + lubricant * 5;
+            if (talc > 30) process -= 10;
+            process = Math.min(100, Math.max(20, process));
+
+            // Weather resistance (0-100) - base 40, uv +30/%, antioxidant +20/%
+            const weather = Math.min(100, 40 + uv * 30 + antioxidant * 20);
+
+            // Surface (0-100) - base 80, gf -2/%, talc>25 -1/excess%
+            let surface = 80 - gf * 2;
+            if (talc > 25) surface -= (talc - 25);
+            surface = Math.max(20, surface);
+
+            // Cost - base 100, talc -0.5/%, epdm +1/%, gf +0.8/%, uv +2/%, antioxidant +1/%
+            const cost = Math.round(100 - talc * 0.5 + epdm * 1 + gf * 0.8 + uv * 2 + antioxidant * 1);
+
+            // Update displays
+            document.getElementById('prop-stiffness').textContent = stiffness.toLocaleString() + ' MPa';
+            document.getElementById('prop-impact').textContent = impact + ' kJ/m²';
+            document.getElementById('prop-hdt').textContent = hdt + '°C';
+            document.getElementById('prop-tensile').textContent = tensile + ' MPa';
+            document.getElementById('prop-shrinkage').textContent = shrinkage + '%';
+            document.getElementById('prop-density').textContent = density;
+            document.getElementById('prop-process').textContent = process > 70 ? '양호' : process > 50 ? '보통' : '불량';
+            document.getElementById('prop-weather').textContent = weather > 70 ? '양호' : weather > 50 ? '보통' : '불량';
+            document.getElementById('prop-surface').textContent = surface > 70 ? '양호' : surface > 50 ? '보통' : '불량';
+            document.getElementById('prop-cost').textContent = cost;
+
+            // Update bars
+            document.getElementById('bar-stiffness').style.width = Math.min(100, stiffness / 50) + '%';
+            document.getElementById('bar-impact').style.width = Math.min(100, impact * 3) + '%';
+            document.getElementById('bar-hdt').style.width = Math.min(100, (hdt - 60) / 1) + '%';
+            document.getElementById('bar-tensile').style.width = Math.min(100, tensile * 2) + '%';
+            document.getElementById('bar-shrinkage').style.width = Math.min(100, (2 - shrinkage) * 70) + '%';
+            document.getElementById('bar-density').style.width = Math.min(100, (density - 0.9) * 200) + '%';
+            document.getElementById('bar-process').style.width = process + '%';
+            document.getElementById('bar-weather').style.width = weather + '%';
+            document.getElementById('bar-surface').style.width = surface + '%';
+            document.getElementById('bar-cost').style.width = Math.min(100, cost) + '%';
+
+            // Update composition bar
+            const compBar = document.getElementById('compositionBar');
+            compBar.innerHTML = `
+                <div class="comp-segment" style="width: ${pp}%; background: #4a90d9;">${pp > 10 ? 'PP ' + pp.toFixed(0) + '%' : ''}</div>
+                <div class="comp-segment" style="width: ${talc}%; background: #f5a623;">${talc > 5 ? talc + '%' : ''}</div>
+                <div class="comp-segment" style="width: ${epdm}%; background: #7ed321;">${epdm > 5 ? epdm + '%' : ''}</div>
+                <div class="comp-segment" style="width: ${gf}%; background: #bd10e0;">${gf > 5 ? gf + '%' : ''}</div>
+                <div class="comp-segment" style="width: ${others}%; background: #9b9b9b;"></div>
+            `;
+
+            // Warnings
+            const warnings = [];
+            if (talc > 30 && epdm < 10) warnings.push('탈크 고함량 + EPDM 저함량: 취성 파괴 위험 (저온 충격 불합격 가능)');
+            if (gf > 20) warnings.push('GF 20% 초과: 표면 섬유 노출, 웰드라인 강도 저하, 워피지 주의');
+            if (uv < 0.2) warnings.push('UV 안정제 부족: 3년 내 변색 시작 예상');
+            if (epdm > 25) warnings.push('EPDM 과다: 강성 부족으로 대시보드 처짐 가능');
+            if (talc + gf > 45) warnings.push('충전제 과다: 가공성 저하, MFI 급락');
+            if (lubricant > 1.0) warnings.push('활제 과다: 도장/접착 불량 위험');
+            if (pp < 40) warnings.push('PP 함량 40% 미만: 기재 연속성 저하');
+
+            const warningList = document.getElementById('warning-list');
+            if (warnings.length === 0) {
+                warningList.innerHTML = '<div style="color: #7ed321; font-size: 0.85em;">✓ 배합 밸런스 양호</div>';
+            } else {
+                warningList.innerHTML = warnings.map(w => `<div class="warning-item">${w}</div>`).join('');
+            }
+        }
+
+        // Initialize
+        updateAll();
+    </script>
+</body>
+</html>
