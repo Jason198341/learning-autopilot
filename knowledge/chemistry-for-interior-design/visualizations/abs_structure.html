@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABS Molecular Structure</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 10px; color: #00d4ff; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 20px; }
+        #canvas-container {
+            width: 100%;
+            height: 500px;
+            background: #0a0a15;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .legend-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+        .legend-line { display: flex; align-items: center; gap: 3px; }
+        .line { width: 20px; height: 3px; background: #888; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-all { background: linear-gradient(45deg, #667eea, #764ba2); color: white; }
+        .btn-a { background: linear-gradient(45deg, #ff6b6b, #ee5a5a); color: white; }
+        .btn-b { background: linear-gradient(45deg, #ffd93d, #f9c74f); color: #333; }
+        .btn-s { background: linear-gradient(45deg, #6bcb77, #4ade80); color: white; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        .card h3 { font-size: 14px; margin-bottom: 8px; }
+        .card p { font-size: 12px; color: #aaa; }
+        .card-a { border-left: 4px solid #ff6b6b; }
+        .card-b { border-left: 4px solid #ffd93d; }
+        .card-s { border-left: 4px solid #6bcb77; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ABS Polymer Structure</h1>
+        <p class="subtitle">Acrylonitrile + Butadiene + Styrene</p>
+
+        <div id="canvas-container">
+            <div class="legend-box">
+                <div class="legend-item">
+                    <div class="legend-line"><div class="line"></div></div>
+                    <span>단일결합 (346 kJ/mol)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-line"><div class="line"></div><div class="line"></div></div>
+                    <span>이중결합 (614 kJ/mol)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-line"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+                    <span>삼중결합 (837 kJ/mol)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-all" onclick="showAll()">전체</button>
+            <button class="btn-a" onclick="showA()">A 아크릴로니트릴</button>
+            <button class="btn-b" onclick="showB()">B 부타디엔</button>
+            <button class="btn-s" onclick="showS()">S 스티렌</button>
+        </div>
+
+        <div class="info-cards">
+            <div class="card card-a">
+                <h3>A - Acrylonitrile</h3>
+                <p>C≡N 삼중결합</p>
+                <p>내열성 + 내화학성</p>
+            </div>
+            <div class="card card-b">
+                <h3>B - Butadiene</h3>
+                <p>C=C 이중결합</p>
+                <p>충격 흡수 (고무)</p>
+            </div>
+            <div class="card card-s">
+                <h3>S - Styrene</h3>
+                <p>벤젠 고리</p>
+                <p>강도 + 광택</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        let scene, camera, renderer, controls;
+        let groups = { all: null, a: null, b: null, s: null };
+        let currentHighlight = 'all';
+
+        const COLORS = {
+            carbon: 0x333333,
+            hydrogen: 0xffffff,
+            nitrogen: 0x3366ff,
+            singleBond: 0x888888,
+            doubleBond: 0xffaa00,
+            tripleBond: 0xff4444,
+            benzene: 0x6bcb77,
+            aRegion: 0xff6b6b,
+            bRegion: 0xffd93d,
+            sRegion: 0x6bcb77
+        };
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(15, 8, 15);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x0a0a15, 1);
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            // Lights
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const light = new THREE.DirectionalLight(0xffffff, 0.8);
+            light.position.set(10, 10, 10);
+            scene.add(light);
+
+            groups.all = new THREE.Group();
+            groups.a = new THREE.Group();
+            groups.b = new THREE.Group();
+            groups.s = new THREE.Group();
+
+            buildABSChain();
+
+            scene.add(groups.all);
+
+            animate();
+        }
+
+        function createAtom(color, size = 0.3) {
+            const geo = new THREE.SphereGeometry(size, 16, 16);
+            const mat = new THREE.MeshPhongMaterial({ color });
+            return new THREE.Mesh(geo, mat);
+        }
+
+        function createBond(from, to, type = 1, color = COLORS.singleBond) {
+            const group = new THREE.Group();
+            const dir = new THREE.Vector3().subVectors(to, from);
+            const length = dir.length();
+
+            for (let i = 0; i < type; i++) {
+                const geo = new THREE.CylinderGeometry(0.05, 0.05, length, 8);
+                const mat = new THREE.MeshPhongMaterial({ color });
+                const bond = new THREE.Mesh(geo, mat);
+
+                const offset = (i - (type - 1) / 2) * 0.12;
+                bond.position.copy(from).add(to).multiplyScalar(0.5);
+
+                if (type > 1) {
+                    const perpendicular = new THREE.Vector3(1, 0, 0);
+                    if (Math.abs(dir.x) > 0.9) perpendicular.set(0, 1, 0);
+                    perpendicular.cross(dir).normalize();
+                    bond.position.add(perpendicular.multiplyScalar(offset));
+                }
+
+                bond.lookAt(to);
+                bond.rotateX(Math.PI / 2);
+                group.add(bond);
+            }
+
+            return group;
+        }
+
+        function buildABSChain() {
+            let x = -10;
+            const y = 0;
+            const spacing = 1.5;
+
+            // S - Styrene section (left)
+            for (let i = 0; i < 3; i++) {
+                const c = createAtom(COLORS.carbon);
+                c.position.set(x, y, 0);
+                groups.s.add(c);
+
+                // Benzene ring
+                const benzene = createBenzeneRing();
+                benzene.position.set(x, y - 1.5, 0);
+                groups.s.add(benzene);
+
+                if (i > 0) {
+                    const bond = createBond(
+                        new THREE.Vector3(x - spacing, y, 0),
+                        new THREE.Vector3(x, y, 0),
+                        1, COLORS.singleBond
+                    );
+                    groups.s.add(bond);
+                }
+
+                // Bond to benzene
+                const bBond = createBond(
+                    new THREE.Vector3(x, y, 0),
+                    new THREE.Vector3(x, y - 1, 0),
+                    1, COLORS.singleBond
+                );
+                groups.s.add(bBond);
+
+                x += spacing;
+            }
+
+            // A - Acrylonitrile section (middle)
+            for (let i = 0; i < 3; i++) {
+                const c = createAtom(COLORS.carbon);
+                c.position.set(x, y, 0);
+                groups.a.add(c);
+
+                // C≡N triple bond
+                const n = createAtom(COLORS.nitrogen, 0.35);
+                n.position.set(x, y + 1.2, 0);
+                groups.a.add(n);
+
+                const tripleBond = createBond(
+                    new THREE.Vector3(x, y, 0),
+                    new THREE.Vector3(x, y + 1, 0),
+                    3, COLORS.tripleBond
+                );
+                groups.a.add(tripleBond);
+
+                // Chain bond
+                const bond = createBond(
+                    new THREE.Vector3(x - spacing, y, 0),
+                    new THREE.Vector3(x, y, 0),
+                    1, COLORS.singleBond
+                );
+                groups.a.add(bond);
+
+                x += spacing;
+            }
+
+            // B - Butadiene section (right)
+            for (let i = 0; i < 4; i++) {
+                const c = createAtom(COLORS.carbon);
+                c.position.set(x, y, 0);
+                groups.b.add(c);
+
+                // Chain bond - alternating single and double
+                const bondType = (i % 2 === 0) ? 2 : 1;
+                const bondColor = (i % 2 === 0) ? COLORS.doubleBond : COLORS.singleBond;
+                const bond = createBond(
+                    new THREE.Vector3(x - spacing, y, 0),
+                    new THREE.Vector3(x, y, 0),
+                    bondType, bondColor
+                );
+                groups.b.add(bond);
+
+                x += spacing;
+            }
+
+            // Rubber particle sphere for B
+            const rubberGeo = new THREE.SphereGeometry(1.2, 32, 32);
+            const rubberMat = new THREE.MeshPhongMaterial({
+                color: COLORS.bRegion,
+                transparent: true,
+                opacity: 0.3
+            });
+            const rubber = new THREE.Mesh(rubberGeo, rubberMat);
+            rubber.position.set(x - 3, y - 2, 0);
+            groups.b.add(rubber);
+
+            // More S at the end
+            for (let i = 0; i < 2; i++) {
+                const c = createAtom(COLORS.carbon);
+                c.position.set(x, y, 0);
+                groups.s.add(c);
+
+                const bond = createBond(
+                    new THREE.Vector3(x - spacing, y, 0),
+                    new THREE.Vector3(x, y, 0),
+                    1, COLORS.singleBond
+                );
+                groups.s.add(bond);
+
+                x += spacing;
+            }
+
+            groups.all.add(groups.s);
+            groups.all.add(groups.a);
+            groups.all.add(groups.b);
+        }
+
+        function createBenzeneRing() {
+            const group = new THREE.Group();
+            const radius = 0.6;
+
+            for (let i = 0; i < 6; i++) {
+                const angle1 = (i / 6) * Math.PI * 2;
+                const angle2 = ((i + 1) / 6) * Math.PI * 2;
+
+                const x1 = Math.cos(angle1) * radius;
+                const z1 = Math.sin(angle1) * radius;
+                const x2 = Math.cos(angle2) * radius;
+                const z2 = Math.sin(angle2) * radius;
+
+                const c = createAtom(COLORS.carbon, 0.2);
+                c.position.set(x1, 0, z1);
+                group.add(c);
+
+                const bondType = (i % 2 === 0) ? 2 : 1;
+                const bondColor = (i % 2 === 0) ? COLORS.doubleBond : COLORS.singleBond;
+                const bond = createBond(
+                    new THREE.Vector3(x1, 0, z1),
+                    new THREE.Vector3(x2, 0, z2),
+                    bondType, bondColor
+                );
+                group.add(bond);
+            }
+
+            return group;
+        }
+
+        function setOpacity(group, opacity) {
+            group.traverse(obj => {
+                if (obj.material) {
+                    obj.material.transparent = true;
+                    obj.material.opacity = opacity;
+                }
+            });
+        }
+
+        function showAll() {
+            setOpacity(groups.s, 1);
+            setOpacity(groups.a, 1);
+            setOpacity(groups.b, 1);
+        }
+
+        function showA() {
+            setOpacity(groups.s, 0.15);
+            setOpacity(groups.a, 1);
+            setOpacity(groups.b, 0.15);
+        }
+
+        function showB() {
+            setOpacity(groups.s, 0.15);
+            setOpacity(groups.a, 0.15);
+            setOpacity(groups.b, 1);
+        }
+
+        function showS() {
+            setOpacity(groups.s, 1);
+            setOpacity(groups.a, 0.15);
+            setOpacity(groups.b, 0.15);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+</html>
