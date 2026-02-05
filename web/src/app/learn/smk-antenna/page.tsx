@@ -368,7 +368,122 @@ const glossary = [
   { term: 'BCM', full: 'Body Control Module', desc: '차체 제어 모듈' },
 ];
 
+// 입문자용 학습 단계
+const beginnerSteps = [
+  {
+    id: 1,
+    title: '스마트키가 뭐예요?',
+    emoji: '🔑',
+    simple: '주머니에 넣고 다니면 자동으로 문 열리는 열쇠!',
+    detail: '옛날에는 열쇠를 자물쇠에 꽂아 돌려야 했지만, 스마트키는 무선으로 차와 대화해서 자동으로 잠금/해제가 됩니다.',
+    analogy: '스마트키 = 차와 대화하는 무전기',
+  },
+  {
+    id: 2,
+    title: '안테나가 뭐예요?',
+    emoji: '📡',
+    simple: '무선 신호를 보내거나 받는 장치!',
+    detail: '눈에 보이지 않는 전파(라디오 파처럼)를 공기 중으로 쏘거나 받는 역할을 합니다.',
+    analogy: '안테나 = 차의 귀(듣기) + 입(말하기)',
+  },
+  {
+    id: 3,
+    title: 'LF와 UHF가 뭐예요?',
+    emoji: '📻',
+    simple: 'LF는 속삭임(가까이), UHF는 외침(멀리)!',
+    detail: 'LF(125kHz)는 1~2미터 가까운 거리에서만 동작하고, UHF(433MHz)는 30~100미터 먼 거리까지 갑니다.',
+    analogy: 'LF = 속삭임(누가 말하는지 정확히 알 수 있음)\nUHF = 확성기(멀리 들리지만 누군지 구분 어려움)',
+  },
+  {
+    id: 4,
+    title: '어떻게 문이 열려요?',
+    emoji: '🚪',
+    simple: '차가 물어보고 → 키가 대답하고 → 비밀번호 맞으면 열림!',
+    detail: '1) 차가 LF로 "키 있어?" 질문\n2) 키가 UHF로 "나 여기!" 대답 (암호 포함)\n3) 차가 암호 확인 → 문 열림',
+    analogy: '친구 집 초인종 누르기:\n"누구세요?" → "나야, 비밀번호는 1234!" → 문 열림',
+  },
+  {
+    id: 5,
+    title: '페라이트가 뭐예요?',
+    emoji: '🧲',
+    simple: '신호를 더 세게 만들어주는 특수 재료!',
+    detail: '철 성분이 들어간 세라믹인데, 자석 성질이 있어서 안테나 신호를 증폭시켜 줍니다. 작은 안테나로도 강한 신호를 만들 수 있어요!',
+    analogy: '페라이트 = 스피커 앰프 (작은 소리도 크게)',
+  },
+  {
+    id: 6,
+    title: '안테나가 왜 여러 개?',
+    emoji: '🚗',
+    simple: '키가 어디 있는지 정확히 알아야 하니까!',
+    detail: '운전석 문 앞이면 운전석만, 트렁크 앞이면 트렁크만 열어야 해요. 여러 안테나가 각자 담당 구역을 감지합니다.',
+    analogy: '집 안 여러 곳에 센서 달기:\n거실 센서, 방 센서, 현관 센서 → 어디에 사람이 있는지 정확히 파악',
+  },
+];
+
+// 입문자용 퀴즈
+const beginnerQuiz = [
+  {
+    question: 'SMK는 무엇의 약자일까요?',
+    options: ['Super Motor Key', 'Smart Key', 'Simple Machine Key'],
+    answer: 1,
+    explanation: 'SMK = Smart Key의 약자입니다. 무선으로 차와 통신하는 똑똑한 열쇠예요!',
+  },
+  {
+    question: 'LF(125kHz)의 통신 거리는?',
+    options: ['1~2미터', '30~100미터', '1킬로미터'],
+    answer: 0,
+    explanation: 'LF는 저주파라서 가까운 거리(1~2m)에서만 동작해요. 키가 어디 있는지 정확히 알 수 있죠!',
+  },
+  {
+    question: '페라이트 안테나가 인기인 이유는?',
+    options: ['예뻐서', '작은데 성능이 좋아서', '맛있어서'],
+    answer: 1,
+    explanation: '페라이트 코어가 신호를 증폭시켜서, 작은 크기로도 강한 신호를 만들 수 있어요!',
+  },
+  {
+    question: '차에 안테나가 여러 개인 이유는?',
+    options: ['멋있어서', '키 위치를 정확히 알려고', '무거우면 안 돼서'],
+    answer: 1,
+    explanation: '각 안테나가 담당 구역을 감지해서, 키가 운전석인지 트렁크인지 정확히 알 수 있어요!',
+  },
+];
+
+// 일상 속 비유 모음
+const everydayAnalogies = [
+  {
+    concept: '주파수 (Hz)',
+    everyday: '목소리 높낮이',
+    explanation: '낮은 목소리 = 저주파(LF), 높은 목소리 = 고주파(UHF). 1초에 몇 번 떨리는지를 Hz로 표현해요.',
+    icon: '🗣️',
+  },
+  {
+    concept: '인덕턴스 (L)',
+    everyday: '물탱크 크기',
+    explanation: '물탱크가 크면 물을 많이 저장하듯, 인덕턴스가 크면 자기장 에너지를 많이 저장해요.',
+    icon: '🛢️',
+  },
+  {
+    concept: 'Q 팩터',
+    everyday: '에어컨 효율 등급',
+    explanation: 'Q가 높으면 에너지 손실이 적어요. 에어컨 1등급처럼 효율이 좋다는 뜻!',
+    icon: '❄️',
+  },
+  {
+    concept: '공진 주파수',
+    everyday: '그네 밀기 타이밍',
+    explanation: '그네 주기에 맞춰 밀면 적은 힘으로 크게 흔들려요. 안테나도 특정 주파수에서 최대 효율!',
+    icon: '🎢',
+  },
+  {
+    concept: '와전류 손실',
+    everyday: '물 새는 통',
+    explanation: '금속 근처에서 에너지가 새나가요. 물통에 구멍 뚫린 것처럼 손실이 발생!',
+    icon: '💧',
+  },
+];
+
 const tabs = [
+  { id: 'beginner', name: '입문 (처음부터)', icon: '🎓' },
   { id: 'overview', name: '개요', icon: '📡' },
   { id: 'types', name: '안테나 종류', icon: '🔧' },
   { id: 'placement', name: '차량 배치', icon: '🚗' },
@@ -380,9 +495,13 @@ const tabs = [
 ];
 
 export default function SmkAntennaPage() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('beginner');
   const [selectedAntenna, setSelectedAntenna] = useState<string | null>(null);
   const [selectedTrouble, setSelectedTrouble] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -477,6 +596,239 @@ export default function SmkAntennaPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Beginner Tab - 입문자용 */}
+        {activeTab === 'beginner' && (
+          <div className="space-y-8">
+            {/* 환영 메시지 */}
+            <div className="bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl p-8 border border-emerald-500/30">
+              <div className="text-center">
+                <span className="text-5xl">🎓</span>
+                <h2 className="text-3xl font-bold text-white mt-4 mb-2">
+                  SMK 안테나, 처음부터 쉽게!
+                </h2>
+                <p className="text-slate-300 text-lg">
+                  중학생도 30분이면 전문가 수준으로 이해할 수 있어요
+                </p>
+                <div className="flex justify-center gap-4 mt-6">
+                  <div className="bg-slate-800/50 rounded-lg px-4 py-2">
+                    <div className="text-2xl font-bold text-emerald-400">{beginnerSteps.length}</div>
+                    <div className="text-xs text-slate-400">학습 단계</div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg px-4 py-2">
+                    <div className="text-2xl font-bold text-cyan-400">{beginnerQuiz.length}</div>
+                    <div className="text-xs text-slate-400">확인 퀴즈</div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg px-4 py-2">
+                    <div className="text-2xl font-bold text-purple-400">30분</div>
+                    <div className="text-xs text-slate-400">예상 시간</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 단계별 학습 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span>📚</span> 단계별로 배우기
+                <span className="text-sm font-normal text-slate-400 ml-2">
+                  ({currentStep + 1} / {beginnerSteps.length})
+                </span>
+              </h3>
+
+              {/* 진행 바 */}
+              <div className="w-full bg-slate-700 rounded-full h-2 mb-6">
+                <div
+                  className="bg-gradient-to-r from-emerald-500 to-cyan-500 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${((currentStep + 1) / beginnerSteps.length) * 100}%` }}
+                />
+              </div>
+
+              {/* 현재 단계 카드 */}
+              <div className="bg-slate-700/30 rounded-xl p-6 mb-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-5xl">{beginnerSteps[currentStep].emoji}</span>
+                  <div>
+                    <div className="text-sm text-cyan-400 font-medium">STEP {beginnerSteps[currentStep].id}</div>
+                    <h4 className="text-2xl font-bold text-white">{beginnerSteps[currentStep].title}</h4>
+                  </div>
+                </div>
+
+                {/* 한 줄 요약 */}
+                <div className="bg-emerald-500/20 rounded-lg p-4 mb-4">
+                  <div className="text-sm text-emerald-300 font-medium mb-1">💡 한 줄 요약</div>
+                  <div className="text-lg text-white font-medium">{beginnerSteps[currentStep].simple}</div>
+                </div>
+
+                {/* 상세 설명 */}
+                <div className="bg-slate-800/50 rounded-lg p-4 mb-4">
+                  <div className="text-sm text-slate-400 font-medium mb-2">📖 자세히 알아보기</div>
+                  <div className="text-slate-300 whitespace-pre-line">{beginnerSteps[currentStep].detail}</div>
+                </div>
+
+                {/* 비유로 이해하기 */}
+                <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+                  <div className="text-sm text-purple-300 font-medium mb-2">🎯 비유로 쉽게!</div>
+                  <div className="text-purple-200 whitespace-pre-line">{beginnerSteps[currentStep].analogy}</div>
+                </div>
+              </div>
+
+              {/* 네비게이션 버튼 */}
+              <div className="flex justify-between">
+                <button
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                    currentStep === 0
+                      ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                      : 'bg-slate-700 text-white hover:bg-slate-600'
+                  }`}
+                >
+                  ← 이전 단계
+                </button>
+                <button
+                  onClick={() => setCurrentStep(Math.min(beginnerSteps.length - 1, currentStep + 1))}
+                  disabled={currentStep === beginnerSteps.length - 1}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                    currentStep === beginnerSteps.length - 1
+                      ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white hover:from-cyan-600 hover:to-emerald-600'
+                  }`}
+                >
+                  다음 단계 →
+                </button>
+              </div>
+            </div>
+
+            {/* 일상 비유 카드 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span>🎨</span> 어려운 용어, 쉽게 이해하기
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {everydayAnalogies.map((item, i) => (
+                  <div key={i} className="bg-slate-700/30 rounded-xl p-4 hover:bg-slate-700/50 transition-all">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">{item.icon}</span>
+                      <div>
+                        <div className="font-bold text-white">{item.concept}</div>
+                        <div className="text-sm text-cyan-400">= {item.everyday}</div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-slate-300">{item.explanation}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 퀴즈 섹션 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span>🧠</span> 확인 퀴즈
+                <span className="text-sm font-normal text-slate-400 ml-2">
+                  ({quizIndex + 1} / {beginnerQuiz.length})
+                </span>
+              </h3>
+
+              <div className="bg-slate-700/30 rounded-xl p-6">
+                <div className="text-lg font-medium text-white mb-6">
+                  Q{quizIndex + 1}. {beginnerQuiz[quizIndex].question}
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  {beginnerQuiz[quizIndex].options.map((option, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setSelectedAnswer(i);
+                        setShowAnswer(true);
+                      }}
+                      disabled={showAnswer}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
+                        showAnswer
+                          ? i === beginnerQuiz[quizIndex].answer
+                            ? 'bg-emerald-500/30 border-2 border-emerald-500 text-emerald-200'
+                            : i === selectedAnswer
+                              ? 'bg-red-500/30 border-2 border-red-500 text-red-200'
+                              : 'bg-slate-700/50 text-slate-400'
+                          : selectedAnswer === i
+                            ? 'bg-cyan-500/30 border-2 border-cyan-500 text-white'
+                            : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                      }`}
+                    >
+                      <span className="font-medium mr-2">{['A', 'B', 'C'][i]}.</span>
+                      {option}
+                    </button>
+                  ))}
+                </div>
+
+                {showAnswer && (
+                  <div className={`rounded-lg p-4 mb-4 ${
+                    selectedAnswer === beginnerQuiz[quizIndex].answer
+                      ? 'bg-emerald-500/20 border border-emerald-500/50'
+                      : 'bg-orange-500/20 border border-orange-500/50'
+                  }`}>
+                    <div className="font-medium mb-2">
+                      {selectedAnswer === beginnerQuiz[quizIndex].answer
+                        ? '🎉 정답이에요!'
+                        : '💡 아쉬워요, 다시 생각해보세요!'}
+                    </div>
+                    <div className="text-sm text-slate-300">{beginnerQuiz[quizIndex].explanation}</div>
+                  </div>
+                )}
+
+                <div className="flex justify-between">
+                  <button
+                    onClick={() => {
+                      setQuizIndex(Math.max(0, quizIndex - 1));
+                      setSelectedAnswer(null);
+                      setShowAnswer(false);
+                    }}
+                    disabled={quizIndex === 0}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                      quizIndex === 0
+                        ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                        : 'bg-slate-700 text-white hover:bg-slate-600'
+                    }`}
+                  >
+                    ← 이전 문제
+                  </button>
+                  <button
+                    onClick={() => {
+                      setQuizIndex(Math.min(beginnerQuiz.length - 1, quizIndex + 1));
+                      setSelectedAnswer(null);
+                      setShowAnswer(false);
+                    }}
+                    disabled={quizIndex === beginnerQuiz.length - 1}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                      quizIndex === beginnerQuiz.length - 1
+                        ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                        : 'bg-cyan-500 text-white hover:bg-cyan-600'
+                    }`}
+                  >
+                    다음 문제 →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 다음 단계 안내 */}
+            <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-blue-500/30 text-center">
+              <h3 className="text-xl font-bold text-white mb-2">
+                🚀 기초 학습 완료!
+              </h3>
+              <p className="text-slate-300 mb-4">
+                이제 &quot;개요&quot; 탭으로 이동해서 더 깊이 있는 내용을 배워보세요.
+              </p>
+              <button
+                onClick={() => setActiveTab('overview')}
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-medium hover:from-blue-600 hover:to-purple-600 transition-all"
+              >
+                개요 탭으로 이동 →
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="space-y-8">
