@@ -93,6 +93,17 @@ const categories = [
     icon: '📡',
     color: 'from-cyan-500 to-blue-600',
   },
+  {
+    id: 'mood-lamp',
+    title: '무드램프 (Ambient Lighting)',
+    subtitle: 'Mood Lamp System',
+    description: '트랜시버 일체형/분리형, 라이트가이드 vs 라이트스트링, LIN 통신, PMMA/실리콘 재질, 광학 설계',
+    progress: 45,
+    totalSteps: 7,
+    completedSteps: 3,
+    icon: '💡',
+    color: 'from-purple-500 to-pink-600',
+  },
 ];
 
 // Glossary terms (용어 사전 - 별도 섹션)
@@ -169,7 +180,7 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '8', icon: '📁' },
+            { label: '학습 카테고리', value: '9', icon: '📁' },
             { label: '용어 사전', value: '3', icon: '📚' },
             { label: '지식 문서', value: '50', icon: '📄' },
             { label: '평균 숙련도', value: '61%', icon: '📈' },
