@@ -135,7 +135,124 @@ const glossary = [
   { term: 'Hot Spot', en: '-', desc: '국부적으로 밝은 점 (불량)' },
 ];
 
-// 설계 파라미터
+// 빛의 단위 설명
+const lightUnits = [
+  {
+    unit: '루멘 (lm)',
+    fullName: 'Luminous Flux (광속)',
+    definition: '광원이 내보내는 총 빛의 양',
+    analogy: '수도꼭지에서 나오는 "총 물의 양"',
+    examples: [
+      { item: '촛불 1개', value: '~12 lm' },
+      { item: '스마트폰 플래시', value: '~50 lm' },
+      { item: '60W LED 전구', value: '~800 lm' },
+      { item: '무드램프 LED 1개', value: '1~20 lm' },
+    ],
+    moodLampNote: '무드램프는 밝게 비추는 게 목적이 아니므로 루멘이 낮아도 OK',
+    icon: '💡',
+  },
+  {
+    unit: '칸델라 (cd)',
+    fullName: 'Luminous Intensity (광도)',
+    definition: '특정 방향으로 방출되는 빛의 세기',
+    analogy: '호스로 물 뿌릴 때 "특정 방향의 수압"',
+    examples: [
+      { item: '양초 1개', value: '~1 cd' },
+      { item: '일반 LED', value: '1~10 cd' },
+      { item: '자동차 헤드라이트', value: '~15,000 cd' },
+    ],
+    moodLampNote: '무드램프는 넓게 퍼지는 타입 선호 (눈부심 방지)',
+    icon: '🔦',
+  },
+  {
+    unit: 'cd/m² (휘도)',
+    fullName: 'Luminance',
+    definition: '단위 면적당 눈에 보이는 밝기',
+    analogy: 'TV 화면, 스마트폰 화면 밝기',
+    examples: [
+      { item: '맑은 하늘', value: '~10,000 cd/m²' },
+      { item: 'PC 모니터 최대', value: '300~500 cd/m²' },
+      { item: '★ 무드램프', value: '10~50 cd/m²' },
+      { item: '촛불 불꽃', value: '~7,000 cd/m²' },
+    ],
+    moodLampNote: '무드램프의 핵심 단위! 10~50 cd/m²가 이상적',
+    icon: '📺',
+  },
+  {
+    unit: '럭스 (lux)',
+    fullName: 'Illuminance (조도)',
+    definition: '표면에 얼마나 많은 빛이 닿는가',
+    analogy: '정원에 스프링클러로 물 뿌릴 때 "땅에 닿는 물의 양"',
+    examples: [
+      { item: '맑은 날 한낮', value: '100,000 lux' },
+      { item: '사무실 조명', value: '300~500 lux' },
+      { item: '거실 조명', value: '150~300 lux' },
+      { item: '보름달 야외', value: '0.1~0.3 lux' },
+    ],
+    moodLampNote: '무드램프는 "보이는 조명"이라 휘도가 더 중요',
+    icon: '☀️',
+  },
+];
+
+// 휘도 위치별 권장값
+const luminanceByPosition = [
+  { position: 'IP 상단 라인', range: '15~30 cd/m²', reason: '간접 조명, 주시각 밖' },
+  { position: '도어 트림 라인', range: '20~40 cd/m²', reason: '도어 포켓 위치 확인' },
+  { position: '센터 콘솔 라인', range: '10~25 cd/m²', reason: '운전 방해 방지' },
+  { position: '풋웰 (발밑)', range: '5~15 cd/m²', reason: '승하차 시만 필요' },
+  { position: '도어 핸들 조명', range: '30~50 cd/m²', reason: '핸들 위치 빠른 파악' },
+  { position: '글로브 박스 내부', range: '20~40 cd/m²', reason: '물건 찾기 용이' },
+];
+
+// 광균일도 등급
+const uniformityGrades = [
+  { range: '90% 이상', grade: '우수', evaluation: '프리미엄 차량, 눈에 띄는 차이 없음', color: 'emerald' },
+  { range: '80~90%', grade: '양호', evaluation: '일반 양산 기준, 미세 차이 인지', color: 'cyan' },
+  { range: '70~80%', grade: '보통', evaluation: '밝고 어두운 부분 눈에 띔', color: 'yellow' },
+  { range: '70% 미만', grade: '불량', evaluation: '명확한 밝기 차이, 품질 불량', color: 'red' },
+];
+
+// LED 색상별 순방향 전압
+const ledForwardVoltage = [
+  { color: '빨강 (Red)', wavelength: '620~760nm', voltage: '1.8~2.2V', material: 'AlGaAs', icon: '🔴' },
+  { color: '주황 (Orange)', wavelength: '590~620nm', voltage: '2.0~2.4V', material: 'GaAsP', icon: '🟠' },
+  { color: '노랑 (Yellow)', wavelength: '570~590nm', voltage: '2.0~2.4V', material: 'GaAsP', icon: '🟡' },
+  { color: '초록 (Green)', wavelength: '495~570nm', voltage: '2.0~3.5V', material: 'GaP/InGaN', icon: '🟢' },
+  { color: '파랑 (Blue)', wavelength: '450~495nm', voltage: '3.0~3.5V', material: 'InGaN', icon: '🔵' },
+  { color: '흰색 (White)', wavelength: '혼합', voltage: '3.0~3.5V', material: 'InGaN+형광', icon: '⚪' },
+];
+
+// PWM 주파수별 특성
+const pwmFrequencyChart = [
+  { frequency: '30Hz 이하', perception: '명확하게 보임', rating: '사용 불가', color: 'red' },
+  { frequency: '30~60Hz', perception: '주변 시야에서 보임', rating: '불편함', color: 'red' },
+  { frequency: '60~100Hz', perception: '빠른 움직임 시 보임', rating: '개선 필요', color: 'yellow' },
+  { frequency: '100~200Hz', perception: '민감한 사람만 인지', rating: '최소 기준', color: 'yellow' },
+  { frequency: '200~500Hz', perception: '거의 인지 못함', rating: '권장 ✓', color: 'emerald' },
+  { frequency: '500Hz~1kHz', perception: '인지 불가', rating: '우수 ✓', color: 'emerald' },
+];
+
+// 색온도 스펙트럼
+const colorTemperature = [
+  { temp: '1800~2000K', source: '촛불/석유램프', feeling: '매우 따뜻, 아늑함', rgb: 'rgb(255,147,41)' },
+  { temp: '2700~3000K', source: '백열전구', feeling: '따뜻함, 휴식', rgb: 'rgb(255,180,107)' },
+  { temp: '3000~3500K', source: '할로겐 램프', feeling: '따뜻한 백색', rgb: 'rgb(255,200,150)' },
+  { temp: '4000~4500K', source: '형광등 (주백색)', feeling: '자연스러운 백색', rgb: 'rgb(255,220,180)' },
+  { temp: '5000~5500K', source: '맑은 날 태양', feeling: '순백색', rgb: 'rgb(255,250,255)' },
+  { temp: '6500~7500K', source: '흐린 날 하늘', feeling: '차가운 백색', rgb: 'rgb(200,220,255)' },
+];
+
+// 인기 무드램프 색상
+const popularColors = [
+  { name: '아이스 블루', rgb: 'R:64, G:128, B:255', brand: 'BMW 기본값', hex: '#4080FF' },
+  { name: '앰버 (호박색)', rgb: 'R:255, G:128, B:0', brand: '아우디, 포르쉐', hex: '#FF8000' },
+  { name: '퓨어 화이트', rgb: 'R:255, G:255, B:255', brand: '벤츠 기본값', hex: '#FFFFFF' },
+  { name: '레드', rgb: 'R:255, G:0, B:0', brand: '스포츠카', hex: '#FF0000' },
+  { name: '그린', rgb: 'R:0, G:255, B:0', brand: '환경 친화', hex: '#00FF00' },
+  { name: '퍼플', rgb: 'R:128, G:0, B:255', brand: '개성 표현', hex: '#8000FF' },
+];
+
+// 설계 파라미터 (기본)
 const designParams = [
   { param: '밝기 (휘도)', range: '10~50 cd/m²', desc: '눈부심 방지, 은은한 조명' },
   { param: '광 균일도', range: '>80%', desc: '최대/최소 밝기 비율' },
@@ -675,63 +792,293 @@ export default function MoodLampPage() {
         {/* Design Tab */}
         {activeTab === 'design' && (
           <div className="space-y-8">
-            {/* 설계 파라미터 */}
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
-              <h2 className="text-2xl font-bold text-white mb-6">📐 핵심 설계 파라미터</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {designParams.map((param, i) => (
-                  <div key={i} className="bg-slate-700/30 rounded-xl p-4">
-                    <h4 className="font-bold text-purple-400 mb-2">{param.param}</h4>
-                    <div className="text-lg font-mono text-white mb-1">{param.range}</div>
-                    <p className="text-sm text-slate-400">{param.desc}</p>
+            {/* 빛의 단위 완전 정복 */}
+            <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-2xl p-6 border border-amber-500/30">
+              <h2 className="text-2xl font-bold text-white mb-2">💡 빛의 단위 완전 정복</h2>
+              <p className="text-slate-400 mb-6">빛을 측정하는 4가지 관점을 이해하면 무드램프 설계가 쉬워집니다</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                {lightUnits.map((unit, i) => (
+                  <div key={i} className="bg-slate-800/60 rounded-xl p-4 border border-slate-700/50">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">{unit.icon}</span>
+                      <div>
+                        <h4 className="font-bold text-amber-400">{unit.unit}</h4>
+                        <p className="text-xs text-slate-500">{unit.fullName}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-white mb-2">{unit.definition}</p>
+                    <div className="bg-purple-500/10 rounded-lg p-2 mb-3">
+                      <p className="text-xs text-purple-300">🎯 비유: {unit.analogy}</p>
+                    </div>
+                    <div className="space-y-1 mb-3">
+                      {unit.examples.slice(0, 3).map((ex, j) => (
+                        <div key={j} className="flex justify-between text-xs">
+                          <span className="text-slate-400">{ex.item}</span>
+                          <span className="text-cyan-400 font-mono">{ex.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-500 italic">{unit.moodLampNote}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* 눈부심 방지 설계 */}
-            <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-2xl p-6 border border-red-500/20">
-              <h2 className="text-xl font-bold text-white mb-4">⚠️ 눈부심 방지 설계</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-slate-800/50 rounded-lg p-4">
-                  <h4 className="text-red-400 font-bold mb-3">❌ Bad Design</h4>
-                  <div className="text-center mb-2">
-                    <span className="text-2xl">💡──────→ 👁️</span>
-                  </div>
-                  <p className="text-sm text-slate-400 text-center">직접 눈에 들어옴</p>
+            {/* 휘도 (cd/m²) - 핵심 파라미터 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-2">📺 휘도 (cd/m²) - 무드램프의 핵심!</h2>
+              <p className="text-slate-400 mb-6">눈에 보이는 밝기를 결정하는 가장 중요한 단위</p>
+
+              <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/30 mb-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-emerald-400 mb-2">10~50 cd/m²</div>
+                  <div className="text-sm text-slate-300">무드램프 권장 휘도 범위</div>
                 </div>
-                <div className="bg-slate-800/50 rounded-lg p-4">
-                  <h4 className="text-green-400 font-bold mb-3">✓ Good Design</h4>
-                  <div className="text-center mb-2">
-                    <span className="text-2xl">💡→ 🧱 → 〰️ → 👁️</span>
+                <div className="grid grid-cols-3 gap-4 mt-4 text-center text-xs">
+                  <div>
+                    <div className="text-red-400">&lt; 10 cd/m²</div>
+                    <div className="text-slate-500">너무 어두움</div>
                   </div>
-                  <p className="text-sm text-slate-400 text-center">차단벽으로 간접광만 도달</p>
+                  <div>
+                    <div className="text-emerald-400">10~50 cd/m²</div>
+                    <div className="text-slate-500">이상적 ✓</div>
+                  </div>
+                  <div>
+                    <div className="text-red-400">&gt; 50 cd/m²</div>
+                    <div className="text-slate-500">눈부심 유발</div>
+                  </div>
                 </div>
+              </div>
+
+              <h3 className="text-lg font-bold text-white mb-4">위치별 권장 휘도</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-600">
+                      <th className="text-left py-2 px-3 text-slate-400">위치</th>
+                      <th className="text-left py-2 px-3 text-slate-400">권장 휘도</th>
+                      <th className="text-left py-2 px-3 text-slate-400">이유</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {luminanceByPosition.map((item, i) => (
+                      <tr key={i} className="border-b border-slate-700/50">
+                        <td className="py-2 px-3 text-white">{item.position}</td>
+                        <td className="py-2 px-3 text-cyan-400 font-mono">{item.range}</td>
+                        <td className="py-2 px-3 text-slate-400 text-xs">{item.reason}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* 광균일도 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-2">📊 광균일도 (Light Uniformity)</h2>
+              <p className="text-slate-400 mb-4">조명 표면의 밝기가 얼마나 고르게 분포하는가</p>
+
+              <div className="bg-slate-700/30 rounded-lg p-4 mb-6">
+                <div className="text-center">
+                  <div className="text-lg font-mono text-cyan-400 mb-2">균일도 = (최소 휘도 / 최대 휘도) × 100%</div>
+                  <p className="text-sm text-slate-400">★ 자동차 무드램프 기준: 80% 이상 (프리미엄 90% 이상)</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+                {uniformityGrades.map((grade, i) => (
+                  <div key={i} className={`rounded-lg p-4 border ${
+                    grade.color === 'emerald' ? 'bg-emerald-500/10 border-emerald-500/30' :
+                    grade.color === 'cyan' ? 'bg-cyan-500/10 border-cyan-500/30' :
+                    grade.color === 'yellow' ? 'bg-yellow-500/10 border-yellow-500/30' :
+                    'bg-red-500/10 border-red-500/30'
+                  }`}>
+                    <div className={`text-lg font-bold mb-1 ${
+                      grade.color === 'emerald' ? 'text-emerald-400' :
+                      grade.color === 'cyan' ? 'text-cyan-400' :
+                      grade.color === 'yellow' ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`}>{grade.range}</div>
+                    <div className="text-white font-medium text-sm">{grade.grade}</div>
+                    <p className="text-xs text-slate-400 mt-1">{grade.evaluation}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* LED 순방향 전압 - 왜 3.2V인가? */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl p-6 border border-blue-500/30">
+              <h2 className="text-2xl font-bold text-white mb-2">⚡ LED 순방향 전압 (Vf) - 왜 3.2V?</h2>
+              <p className="text-slate-400 mb-4">LED가 켜지기 위해 필요한 최소 전압 = 빛의 에너지와 연결됨!</p>
+
+              <div className="bg-slate-800/60 rounded-xl p-4 mb-6">
+                <h4 className="text-purple-400 font-bold mb-2">🔬 물리학적 원리</h4>
+                <p className="text-sm text-slate-300 mb-3">빛의 에너지 = 전자의 에너지 (E = h × f)</p>
+                <div className="grid md:grid-cols-2 gap-4 text-sm">
+                  <div className="bg-red-500/10 rounded-lg p-3">
+                    <div className="text-red-400 font-medium">빨간색 빛</div>
+                    <div className="text-slate-400 text-xs">낮은 주파수 → 낮은 에너지 → <span className="text-cyan-400">1.8~2.2V</span></div>
+                  </div>
+                  <div className="bg-blue-500/10 rounded-lg p-3">
+                    <div className="text-blue-400 font-medium">파란색 빛</div>
+                    <div className="text-slate-400 text-xs">높은 주파수 → 높은 에너지 → <span className="text-cyan-400">3.0~3.5V</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-600">
+                      <th className="text-left py-2 px-3 text-slate-400">LED 색상</th>
+                      <th className="text-left py-2 px-3 text-slate-400">파장</th>
+                      <th className="text-left py-2 px-3 text-slate-400">순방향 전압</th>
+                      <th className="text-left py-2 px-3 text-slate-400">반도체 재료</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ledForwardVoltage.map((led, i) => (
+                      <tr key={i} className="border-b border-slate-700/50">
+                        <td className="py-2 px-3">
+                          <span className="mr-2">{led.icon}</span>
+                          <span className="text-white">{led.color}</span>
+                        </td>
+                        <td className="py-2 px-3 text-slate-400 font-mono text-xs">{led.wavelength}</td>
+                        <td className="py-2 px-3 text-cyan-400 font-bold">{led.voltage}</td>
+                        <td className="py-2 px-3 text-slate-500 text-xs">{led.material}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-4 bg-amber-500/10 rounded-lg p-3 border border-amber-500/30">
+                <p className="text-sm text-amber-300">
+                  💡 <strong>RGB LED에서 &quot;3.2V&quot;가 대표값인 이유:</strong> 가장 높은 전압이 필요한 Blue LED 기준으로 시스템 설계!
+                </p>
+              </div>
+            </div>
+
+            {/* PWM 디밍 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-2">🔄 PWM 디밍 - 왜 200Hz 이상?</h2>
+              <p className="text-slate-400 mb-4">빠르게 ON/OFF 반복해서 밝기 조절 = 깜빡임 없이 부드럽게!</p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-slate-700/30 rounded-xl p-4">
+                  <h4 className="text-red-400 font-bold mb-3">❌ 아날로그 디밍 (전압 낮추기)</h4>
+                  <ul className="text-sm text-slate-400 space-y-1">
+                    <li>• 전압 낮으면 LED 색상 변함</li>
+                    <li>• 에너지 효율 낮음 (열 발생)</li>
+                    <li>• 정밀 제어 어려움</li>
+                  </ul>
+                </div>
+                <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/30">
+                  <h4 className="text-emerald-400 font-bold mb-3">✓ PWM 디밍 (ON/OFF 반복)</h4>
+                  <ul className="text-sm text-slate-300 space-y-1">
+                    <li>• 색상 변화 없음 (항상 정격 전압)</li>
+                    <li>• 에너지 효율 좋음</li>
+                    <li>• 256~4096단계 정밀 제어</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-bold text-white mb-4">주파수별 깜빡임 인지</h3>
+              <div className="space-y-2">
+                {pwmFrequencyChart.map((freq, i) => (
+                  <div key={i} className={`flex items-center gap-4 rounded-lg p-3 ${
+                    freq.color === 'emerald' ? 'bg-emerald-500/10' :
+                    freq.color === 'yellow' ? 'bg-yellow-500/10' :
+                    'bg-red-500/10'
+                  }`}>
+                    <div className="w-24 font-mono text-sm text-white">{freq.frequency}</div>
+                    <div className="flex-1 text-sm text-slate-400">{freq.perception}</div>
+                    <div className={`text-sm font-bold ${
+                      freq.color === 'emerald' ? 'text-emerald-400' :
+                      freq.color === 'yellow' ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`}>{freq.rating}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 색온도와 인기 색상 */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-2xl font-bold text-white mb-2">🌈 색온도 & 인기 색상</h2>
+              <p className="text-slate-400 mb-6">숫자가 낮을수록 &quot;따뜻한&quot; 색, 높을수록 &quot;차가운&quot; 색 (직관과 반대!)</p>
+
+              <div className="flex overflow-x-auto gap-2 pb-4 mb-6">
+                {colorTemperature.map((ct, i) => (
+                  <div key={i} className="flex-shrink-0 rounded-lg p-3 w-32 text-center" style={{ backgroundColor: ct.rgb + '20' }}>
+                    <div className="w-8 h-8 rounded-full mx-auto mb-2" style={{ backgroundColor: ct.rgb }} />
+                    <div className="text-sm font-bold text-white">{ct.temp}</div>
+                    <div className="text-xs text-slate-400">{ct.source}</div>
+                    <div className="text-xs text-slate-500 mt-1">{ct.feeling}</div>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-white mb-4">브랜드별 인기 무드램프 색상</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                {popularColors.map((color, i) => (
+                  <div key={i} className="bg-slate-700/30 rounded-lg p-3 text-center">
+                    <div className="w-10 h-10 rounded-full mx-auto mb-2 border-2 border-slate-600" style={{ backgroundColor: color.hex }} />
+                    <div className="text-sm font-bold text-white">{color.name}</div>
+                    <div className="text-xs text-slate-500">{color.brand}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* 전력 계산 */}
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
-              <h2 className="text-xl font-bold text-white mb-4">⚡ 소비 전력 계산</h2>
-              <div className="bg-slate-700/30 rounded-lg p-4">
-                <div className="text-lg font-mono text-cyan-400 mb-4">P = V × I × n × 3(RGB) / η</div>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-slate-400">V: LED 순방향 전압 (~3.2V)</p>
-                    <p className="text-slate-400">I: LED 전류 (~20mA)</p>
-                    <p className="text-slate-400">n: LED 수량</p>
-                  </div>
-                  <div>
-                    <p className="text-slate-400">3: RGB 채널 수</p>
-                    <p className="text-slate-400">η: 효율 (~0.85)</p>
+              <h2 className="text-xl font-bold text-white mb-4">⚡ LED 전력 (와트수) 계산</h2>
+
+              <div className="bg-slate-700/30 rounded-lg p-4 mb-4">
+                <div className="text-xl font-mono text-cyan-400 mb-2">P = Vf × If</div>
+                <div className="text-sm text-slate-400">전력(W) = 순방향 전압(V) × 순방향 전류(A)</div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4 mb-4">
+                <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+                  <h4 className="text-blue-400 font-bold mb-2">예시 1: 일반 LED 1개</h4>
+                  <div className="text-sm text-slate-300">
+                    Blue: 3.2V × 0.02A = <span className="text-cyan-400 font-bold">64mW</span>
                   </div>
                 </div>
-                <div className="mt-4 p-3 bg-slate-800/50 rounded">
-                  <p className="text-sm text-slate-300">
-                    예시: RGB LED 30개, 20mA, 3.2V<br />
-                    P = 3.2 × 0.02 × 30 × 3 / 0.85 ≈ <span className="text-cyan-400 font-bold">6.8W</span>
-                  </p>
+                <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+                  <h4 className="text-purple-400 font-bold mb-2">예시 2: RGB LED 1개</h4>
+                  <div className="text-sm text-slate-300">
+                    R+G+B 합계 ≈ <span className="text-cyan-400 font-bold">160mW</span>
+                  </div>
                 </div>
+                <div className="bg-amber-500/10 rounded-lg p-4 border border-amber-500/30">
+                  <h4 className="text-amber-400 font-bold mb-2">예시 3: 차량 전체</h4>
+                  <div className="text-sm text-slate-300">
+                    IP+도어+콘솔+풋웰 ≈ <span className="text-cyan-400 font-bold">9W</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-emerald-500/10 rounded-lg p-3 border border-emerald-500/30">
+                <p className="text-sm text-emerald-300">
+                  💡 와트수는 &quot;정해진 값&quot;이 아님! 제조사 권장 정격(Vf × If)일 뿐, 전류를 낮추면 밝기↓ 발열↓ 수명↑
+                </p>
+              </div>
+            </div>
+
+            {/* 기본 설계 파라미터 요약 */}
+            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-purple-500/30">
+              <h2 className="text-2xl font-bold text-white mb-6">📐 핵심 설계 파라미터 요약</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {designParams.map((param, i) => (
+                  <div key={i} className="bg-slate-800/60 rounded-xl p-4">
+                    <h4 className="font-bold text-purple-400 mb-2">{param.param}</h4>
+                    <div className="text-lg font-mono text-white mb-1">{param.range}</div>
+                    <p className="text-sm text-slate-400">{param.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
