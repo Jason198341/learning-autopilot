@@ -82,6 +82,17 @@ const categories = [
     icon: '🤝',
     color: 'from-indigo-500 to-purple-600',
   },
+  {
+    id: 'smk-antenna',
+    title: 'SMK 안테나',
+    subtitle: 'Smart Key Antenna System',
+    description: 'LF/UHF/UWB 안테나 기술, 페라이트 코어 설계, PEPS 통신 프로토콜, 제조 공정, 테스트 및 트러블슈팅',
+    progress: 50,
+    totalSteps: 7,
+    completedSteps: 4,
+    icon: '📡',
+    color: 'from-cyan-500 to-blue-600',
+  },
 ];
 
 // Glossary terms (용어 사전 - 별도 섹션)
@@ -158,7 +169,7 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {[
-            { label: '학습 카테고리', value: '7', icon: '📁' },
+            { label: '학습 카테고리', value: '8', icon: '📁' },
             { label: '용어 사전', value: '3', icon: '📚' },
             { label: '지식 문서', value: '50', icon: '📄' },
             { label: '평균 숙련도', value: '61%', icon: '📈' },
