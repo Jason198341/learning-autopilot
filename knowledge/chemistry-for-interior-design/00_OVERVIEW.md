@@ -26,6 +26,15 @@
 | 9 | 불량의 과학 | 가공불량/필드불량 진단 및 해결 |
 | 10 | 설계 의사결정 | 프로젝트 전체 프레임워크 |
 
+## 옆산 (Side Topics) — 심화 주제
+
+| 옆산 | 주제 | 핵심 내용 |
+|------|------|----------|
+| 1 | 표면 처리의 과학 | 표면 에너지, 화염/플라즈마 처리, 프라이머, 접착 메커니즘 |
+| 2 | 발포의 과학 | 화학/물리 발포, 핵 생성, 기포 구조, 경량화 |
+| 3 | 지속가능성의 과학 | 바이오 기반 vs 생분해성, 재활용 방법, LCA |
+| 4 | 전장 통합의 소재 | 광학 소재, 전도성 고분자, IME, 디스플레이 커버 |
+
 ## 추가 자료
 
 | 파일 | 설명 |
@@ -34,6 +43,10 @@
 | visualizations/carbon_orbitals.html | 탄소 오비탈 3D 시각화 |
 | visualizations/abs_structure.html | ABS 분자 구조 3D 시각화 |
 | visualizations/additive_tuning_simulator.html | 첨가제 튜닝 시뮬레이터 |
+| SIDE1_SURFACE_TREATMENT.md | 표면 처리의 과학 |
+| SIDE2_FOAMING.md | 발포의 과학 |
+| SIDE3_SUSTAINABILITY.md | 지속가능성의 과학 |
+| SIDE4_ELECTRONICS.md | 전장 통합의 소재 |
 
 ## 철학적 기반
 
